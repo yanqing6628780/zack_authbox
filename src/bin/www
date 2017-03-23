@@ -5,9 +5,9 @@
  */
 
 var app = require('../app');
+var models = require("../app/models");
 var debug = require('debug')('src:server');
 var http = require('http');
-
 /**
  * Get port from environment and store in Express.
  */
@@ -24,11 +24,13 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
+models.sequelize.sync().then(function () {
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', onListening);
+}).catch(function(){
+    console.error('sequelize sync fail');
+});
 /**
  * Normalize a port into a number, string, or false.
  */

@@ -1,13 +1,9 @@
 'use strict';
 
-// const local = require('./passport/local');
-const github = require('../passport/github');
 const local = require('../passport/local');
-const weibo = require('../passport/weibo');
-const qq = require('../passport/qq');
 
 module.exports = function(app, passport) {
-    var User = require(app.configs.path.models + '/user_schema.js');
+    var User = require(app.configs.path.models).user;
 
     // serialize sessions
     passport.serializeUser(function(user, done) {
@@ -21,10 +17,7 @@ module.exports = function(app, passport) {
     });
 
     // use these strategies
-    passport.use(local(app));
-    passport.use(github(app));
-    passport.use(weibo(app));
-    passport.use(qq(app));
+    passport.use(local());
 
     return passport;
 };

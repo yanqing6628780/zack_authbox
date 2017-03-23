@@ -11,11 +11,8 @@ development:
     db:
         host: localhost
         name: authbox
-        user: root
+        username: root
         password: 123456
-    user_types:
-        - admin
-        - user
 
 production:
     domain:
@@ -30,8 +27,5 @@ production:
     db:
         host: localhost
         name: authbox
-        user: root
+        username: root
         password: 123456
-    user_types:
-        - admin
-        - user
