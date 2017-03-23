@@ -11,26 +11,7 @@ npm-debug.log
 
 ## Test Report
 reports/
-
-## IDE Cache
-.idea*
-.sublime*
-*.log
-src/logs/
-src/public/
-*.pid
-models-log.*
-src/config/*.yaml
-
-## Cache Folder
-bower_components/
-node_modules/
-build/
-dist/
-npm-debug.log
-
-## Test Report
-reports/
+src/coverage/
 
 ## IDE Cache
 .idea*
@@ -42,4 +23,5 @@ src/public/
 models-log.*
 src/config/app.yaml
 
-src/coverage/
+
+yarn\.lock
