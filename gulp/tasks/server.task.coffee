@@ -18,6 +18,7 @@ module.exports = (gulp, config, $, args) ->
             {
                 args: ['development']
                 watch: [
+                    "#{config.source}/src/app.js",
                     "#{config.source}/app",
                     "#{config.source}/config",
                     "#{config.source}/bin",

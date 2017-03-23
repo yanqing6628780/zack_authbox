@@ -2,7 +2,7 @@
 
 module.exports = function(app) {
 
-    var User = require(app.configs.path.models + '/user_schema.js');
+    var User = require(app.configs.path.models).user;
 
     var exports = {};
 

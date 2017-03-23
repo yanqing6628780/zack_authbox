@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = function(app) {
-    var User = require(app.configs.path.models + '/user_schema.js');
+    var models = require(app.configs.path.models);
+    var User = models.user;
 
     var exports = {};
     exports.list = function(req, res, next) {

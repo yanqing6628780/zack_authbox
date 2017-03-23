@@ -1,9 +1,10 @@
 'use strict';
 
 module.exports = function(app) {
-
-    var User = require(app.configs.path.models + '/user_schema.js');
-    var Oauth = require(app.configs.path.models + '/oauth.js');
+    var models = require(app.configs.path.models);
+    var User = models.user;
+    // @todo models/oauth.js
+    // var Oauth = models.oauth;
     var exports = {};
 
     /**

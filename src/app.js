@@ -5,7 +5,6 @@ var path = require('path');
 var express = require('express');
 var session = require('express-session');
 var flash = require('express-flash');
-var mongoose = require('mongoose');
 var passport = require('passport');
 var favicon = require('serve-favicon');
 var morgan = require('morgan');
@@ -29,14 +28,12 @@ app.configs = configs;
 
 // view engine setup
 app.set('view engine', 'jade');
-app.set('trust proxy', 1) // trust first proxy
+app.set('trust proxy', 1); // trust first proxy
 app.set('views', configs.path.views);
 app.set('port', configs.port);
 app.use(express.static(configs.path.public));
 
 if (app.get('env') === 'development') {
-    console.log(app.settings);
-    console.log(app.configs);
     app.use(morgan('dev'));
 } else {
     var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
@@ -60,22 +57,11 @@ app.use(flash());
 
 require('./app/route')(app, passport);
 
-//链接数据库
-var mongodbUri = 'mongodb://' + configs.db.host + '/' + configs.db.name;
-
-mongoose.connect(mongodbUri, function(err, res) {
-    if (err) {
-        console.log('ERROR connecting to: ' + mongodbUri + '. ' + err);
-    } else {
-        console.log('Succeeded connected to: ' + mongodbUri);
-    }
-});
-
 console.log('-------------------------------');
 console.log('访问: ' + configs.domainUrl);
 var port = configs.port != 80 ? ':' + configs.port : ''
-configs.IPv4Address.forEach(function (ip) {
-    console.log('ip访问: ' + ip + port );
+configs.IPv4Address.forEach(function(ip) {
+    console.log('ip访问: ' + ip + port);
 });
 console.log('-------------------------------');
 

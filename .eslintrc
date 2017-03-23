@@ -1,0 +1,19 @@
+{
+    "env": {
+        "browser": true,
+        "jasmine": true,
+        "node": true
+        "es6": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        "semi": [2, "always"],
+        "quotes": [0, "double"],
+        "no-loop-func": "error",
+        "no-console": "off",
+        "comma-dangle": [2, "never"]
+    },
+    "globals": {
+        "__dirname": false
+    }
+}

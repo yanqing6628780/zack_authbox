@@ -1,11 +1,11 @@
 'use strict';
 
 const LocalStrategy = require('passport-local').Strategy;
+const configs = require('authbox-config')();
 
-module.exports = function(app) {
-
-    var User = require(app.configs.path.models + '/user_schema.js');
-
+module.exports = function() {
+    var models = require(configs.path.models);
+    var User = models.user;
     var exports = new LocalStrategy({
             usernameField: 'username',
             passwordField: 'password',
@@ -18,7 +18,7 @@ module.exports = function(app) {
                 if (user) {
                     return done(null, user);
                 } else {
-                    var reasons = User.failedLogin;
+                    var reasons = User.getFailReasons();
                     switch (reason) {
                         case reasons.FAIL:
                             req.flash('errors', '用户名或密码错误');
