@@ -1,0 +1,14 @@
+{
+  "line-endings" : {
+    "level" : "error",
+    "value" : "unix"
+  },
+  "indentation" : {
+    "value" : 4
+  },
+  "braces_spacing" : {
+    "level" : "error",
+    "spaces" : 1,
+    "empty_object_spaces" : 1
+  }
+}

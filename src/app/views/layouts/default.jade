@@ -1,0 +1,18 @@
+doctype html
+html(lang="zh-cn")
+    head
+        block title
+        title #{title}
+        link(rel='stylesheet', href='//at.alicdn.com/t/font_1476669536_3056495.css')
+        link(rel='stylesheet', href='/stylesheets/lib/bootstrap.min.css')
+        link(rel='stylesheet', href='/stylesheets/style.css')
+    body.bg
+        .container-fluid
+            .messages.row
+                include ../includes/messages.jade
+        .container.main
+            .row
+                block content
+
+        script(src="/javascripts/lib/jquery.min.js")
+        block scripts

@@ -1,0 +1,17 @@
+extends ./layouts/default
+
+block content
+    div.container
+        div.row
+            div.col-md-12
+                h1 #{title}
+                p Welcome to #{title},
+                    if user
+                        strong #{user.nickname},
+                        a(href='/logout') 登出
+                    else
+                        a(href='/login')
+                            strong 登录
+                        span  /
+                        a(href='/register')
+                            strong  注册

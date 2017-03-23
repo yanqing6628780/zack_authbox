@@ -1,0 +1,27 @@
+extends ./layouts/default
+
+block content
+    h1 #{message}
+    a(href='javascript:history.go(-1)').btn.btn-link
+        span#time 10
+        | 秒后 返回
+    a(href='/').btn.btn-link 首页
+    h2 #{error.status}
+    div.well #{error}
+
+block scripts
+    script(type='text/javascript').
+        $(function(){
+            var delaySec = parseInt($("#time").text());
+            function show() {
+                console.log(delaySec);
+                if(delaySec > 0) {
+                    delaySec--;
+                    $("#time").text(delaySec);
+                } else {
+                    //以后用session
+                    history.go(-1);
+                }
+            }
+            setInterval(show, 1000);
+        });

@@ -1,0 +1,6 @@
+reporting:
+  print: summary
+  reports:
+    - html
+    - cobertura
+  dir: ./public/coverage

@@ -1,0 +1,33 @@
+extends ./layouts/default
+
+block content
+    div.col-md-6.col-md-offset-3
+        form.form-horizontal.login-box(role='form' method='post')
+            div.form-group
+                label.col-sm-2.control-label 用户名
+                div.col-sm-10
+                    input.form-control(type="text" name="username" placeholder="用户名" value='' required)
+            div.form-group
+                label.col-sm-2.control-label 密码
+                div.col-sm-10
+                    input.form-control(type="password" name="password" placeholder="密码" required)
+            block register
+                div.form-group
+                    div.col-sm-offset-2.col-sm-10
+                        button.btn.btn-success.col-md-4 登录
+                        a(href='/register').btn.btn-link 注册
+            div.form-group
+                div.col-sm-offset-2.col-sm-10.social-auth
+                    ul.list-inline
+                        li
+                            a(href='/auth/github')
+                                i.iconfont.icon-github
+                        li
+                            a(href='/auth/qq')
+                                i.iconfont.icon-QQ
+                        li
+                            a(href='/auth/weibo')
+                                i.iconfont.icon-weibo
+                        li
+                            a(href='/auth/wechat')
+                                i.iconfont.icon-wechat

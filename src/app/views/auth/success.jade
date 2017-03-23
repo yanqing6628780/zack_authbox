@@ -1,0 +1,13 @@
+extends ../layouts/default
+
+block content
+    .jumbotron
+        h1 欢迎，#{user.nickname}
+        if user.provider
+            p 您使用 #{user.provider} 登录成功
+        else
+            p 登录成功
+        p
+            a.btn.btn-link(href='/') 首页 &raquo;
+            if user.user_type == 'admin'
+                a.btn.btn-link(href='/admin') 后台管理 &raquo;
