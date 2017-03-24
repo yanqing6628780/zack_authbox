@@ -11,7 +11,6 @@ npm-debug.log
 
 ## Test Report
 reports/
-src/coverage/
 
 ## IDE Cache
 .idea*
@@ -21,7 +20,5 @@ src/logs/
 src/public/
 *.pid
 models-log.*
-src/config/app.yaml
 
-
-yarn\.lock
+yarn.lock
