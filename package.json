@@ -1,18 +1,21 @@
 {
-  "name": "AuthBox-Project",
+  "name": "zack_authbox",
   "version": "0.0.1",
   "description": "",
   "main": "gulpfile.js",
   "repository": {
     "type": "git",
-    "url": "http://git.pbr.link/BoxSystem/BugBox.git"
+    "url": "git+https://github.com/yanqing6628780/zack_authbox.git"
   },
   "keywords": [
     "AuthBox",
     "pages"
   ],
   "scripts": {
-    "test": "./node_modules/.bin/gulp test"
+    "pretest": "npm run lint",
+    "test": "node ./node_modules/gulp/bin/gulp.js test",
+    "lint": "node ./node_modules/gulp/bin/gulp.js lint",
+    "postinstall": "node ./node_modules/gulp/bin/gulp.js"
   },
   "license": "MIT",
   "dependencies": {
