@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-    var models = require(app.configs.path.models);
+    var models = require('y-config').getConfig().models;
     var User = models.user;
     // @todo models/oauth.js
     // var Oauth = models.oauth;

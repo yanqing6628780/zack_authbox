@@ -2,8 +2,8 @@ supertest = require('supertest')
 cheerio = require('cheerio')
 should = require('should')
 app = require('../app')
-config = require('authbox-config')()
 request = supertest(app)
+configs = require('y-config').getConfig()
 User = require "#{config.path.models}user_schema.js"
 
 describe '添加与编辑 测试', () ->

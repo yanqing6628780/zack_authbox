@@ -3,7 +3,7 @@
 module.exports = function (app) {
     var exports = {};
     exports.home = function(req, res, next) {
-        res.render('admin/index', { title: '管理后台' });
+        res.render('admin/index', { title: '管理后台', admin: req.session.admin });
     }
 
     return exports;

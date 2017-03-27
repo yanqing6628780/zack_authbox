@@ -3,9 +3,7 @@ html(lang="zh-cn")
     head
         block title
         title #{title}
-        link(rel='stylesheet', href='//at.alicdn.com/t/font_1476669536_3056495.css')
-        link(rel='stylesheet', href='/stylesheets/lib/bootstrap.min.css')
-        link(rel='stylesheet', href='/stylesheets/style.css')
+        include ../../includes/css.jade
     body(data-path="#{path}")
         nav.navbar.navbar-inverse(role='navigation')
             .container
@@ -15,31 +13,37 @@ html(lang="zh-cn")
                         span.icon-bar
                         span.icon-bar
                         span.icon-bar
-                a.navbar-brand(href='/pages/index.html') PandoraBox
-                #navbar.collapse.navbar-collapse
-                    ul.nav.navbar-nav.navbar-right
-                        li.dropdown
-                            a.dropdown-toggle(data-toggle="dropdown" href="#")
-                                if user.username
-                                    | #{user.username}
-                                else
-                                    | #{user.eamil}
-                                span.caret
-                            ul.dropdown-menu
-                                li
-                                    a(href='/logout') 退出
+                a.navbar-brand(href='/pages/index.html') 后台管理
+                if admin
+                    #navbar.collapse.navbar-collapse
+                        ul.nav.navbar-nav.navbar-right
+                            li.dropdown
+                                a.dropdown-toggle(data-toggle="dropdown" href="#")
+                                    | #{admin.username}
+                                    span.caret
+                                ul.dropdown-menu
+                                    li
+                                        a(href='/admin/logout') 退出
+
+        .container-fluid
+            .messages.row
+                include ../../includes/messages.jade
 
         .container
             .row
                 section
-                    .menu.col-md-3.col-sm-3
-                        .list-group
-                            a.list-group-item(href='/admin/users') 用户管理
-                    .col-md-9.col-sm-9
-                        block content
+                    if admin
+                        .menu.col-md-3.col-sm-3
+                            .list-group
+                                a.list-group-item(href='/admin/users') 用户管理
+                        .col-md-9.col-sm-9
+                            block content
+                    else
+                        .col-md-12
+                            block content
 
-        script(src="/javascripts/lib/jquery.min.js")
-        script(src="/javascripts/lib/bootstrap.min.js")
+
+        include ../../includes/js.jade
         script.
             $(function(){
                 var path = $('body').attr('data-path');

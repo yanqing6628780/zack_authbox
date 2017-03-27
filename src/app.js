@@ -10,15 +10,27 @@ var favicon = require('serve-favicon');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var configs = require('authbox-config')();
+var configs = require('y-config');
 
-configs = require('./app/utils/getIp.js')();
+configs.setConfigPath(__dirname + '/config/app.example.yaml');
+configs.setCustomConfigPath(__dirname + '/config/app.yaml');
+configs = configs.getConfig();
+
+//设置资源文件夹绝对路径
+var pathArr = ['views', 'models', 'public', 'resource', 'logs'];
+pathArr.forEach(path => {
+    configs[path] = `${__dirname}/${configs[path]}`;
+});
+configs.models = require(configs.models);
+
+require('./app/utils/getIp.js');
 
 var log = require('./app/utils/log.js');
 
 var app = express();
 
-var logDirectory = configs.path.logs;
+var logDirectory = configs.logs;
+
 // ensure log directory exists
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
 
@@ -29,9 +41,9 @@ app.configs = configs;
 // view engine setup
 app.set('view engine', 'jade');
 app.set('trust proxy', 1); // trust first proxy
-app.set('views', configs.path.views);
+app.set('views', configs.views);
 app.set('port', configs.port);
-app.use(express.static(configs.path.public));
+app.use(express.static(configs.public));
 
 if (app.get('env') === 'development') {
     app.use(morgan('dev'));

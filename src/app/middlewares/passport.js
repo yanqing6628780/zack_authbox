@@ -3,7 +3,9 @@
 const local = require('../passport/local');
 
 module.exports = function(app, passport) {
-    var User = require(app.configs.path.models).user;
+    var models = require('y-config').getConfig().models;
+    var User = models.user;
+    var adminUser = models.admin;
 
     // serialize sessions
     passport.serializeUser(function(user, done) {
@@ -11,13 +13,13 @@ module.exports = function(app, passport) {
     });
 
     passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-            done(err, user);
-        });
+        User.findById(id)
+            .then(_user => done(null, _user))
+            .catch(err => done(err));
     });
 
     // use these strategies
-    passport.use(local());
+    passport.use('local', local());
 
     return passport;
 };

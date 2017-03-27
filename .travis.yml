@@ -1,0 +1,20 @@
+sudo: false
+language: node_js
+node_js:
+  # - "0.10"
+  # - "0.12"
+  # - "4"
+  - "5"
+  - "6"
+before_install:
+  - echo '' > .npmrc
+  - npm install -g gulp-cli
+install:
+  - npm install
+script:
+  - cd dist
+  - npm install
+  - gulp
+git:
+  depth: 10
+os: linux

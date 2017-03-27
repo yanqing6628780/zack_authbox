@@ -1,10 +1,10 @@
 'use strict';
 
 const LocalStrategy = require('passport-local').Strategy;
-const configs = require('authbox-config')();
+const configs = require('y-config').getConfig();
 
 module.exports = function() {
-    var models = require(configs.path.models);
+    var models = configs.models;
     var User = models.user;
     var exports = new LocalStrategy({
             usernameField: 'username',

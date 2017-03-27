@@ -1,11 +1,11 @@
 'use strict';
 
-var os = require('os');
-var ifaces = os.networkInterfaces();
-var configs = require('authbox-config')();
+const os = require('os');
+let ifaces = os.networkInterfaces();
+const configs = require('y-config').CONFIG;
 
 //这个方法可能在liunx系统上无法通过
-module.exports = function () {
+module.exports = (function () {
     var IPv4Address = [];
     for (var dev in ifaces) {
         var alias = 0;
@@ -29,4 +29,4 @@ module.exports = function () {
     configs.IPv4Address = IPv4Address;
 
     return configs;
-}
+})();
