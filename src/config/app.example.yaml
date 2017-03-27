@@ -1,14 +1,14 @@
 domain:
-    port: 8000
-    views: app/views
-    models: app/models
-    logs: logs
-    public: public
-    resource: resource
-    Oauth:
-        accessTokenLifetime: 7200
-        db:
-            host: localhost
-            name: authbox
-            username: root
-            password: 123456
+port: 8000
+views: ./app/views
+models: ./app/models
+logs: ./logs
+public: ./public
+resource: ./resource
+Oauth:
+    accessTokenLifetime: 7200
+db:
+    host: localhost
+    name: authbox
+    username: root
+    password: 123456
