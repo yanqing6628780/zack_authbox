@@ -1,18 +1,16 @@
 //seeder入口
-const mongoose = require('mongoose');
-const configs = require('y-config').getConfig();
+var configs = require('y-config');
+
+configs.setConfigPath('./src/config/app.example.yaml');
+configs.setCustomConfigPath('./src/config/app.yaml');
+configs = configs.getConfig();
+var models = require('../../' + configs.models);
 
 //链接数据库
-const mongodbUri = `mongodb://${config.db.host}/${config.db.name}`;
-
-mongoose.connect(mongodbUri, function(err, res) {
-    if (err) {
-        console.log('ERROR connecting to: ' + mongodbUri + '. ' + err);
-    } else {
-        console.log('Succeeded connected to: ' + mongodbUri);
-    }
+models.sequelize.sync().then(function () {
+    //将需要运行的seeder加在下面
+    require('./admin.js')(models).run();
+}).catch(function(){
+    console.error('sequelize sync fail');
 });
 
-//将需要运行的seeder加在下面
-require('./user.js')(config).run();
-require('./oauth.js')(config).run();
