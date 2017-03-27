@@ -38,12 +38,6 @@ module.exports = function(app, passport) {
         middlewares[key] = require(file)(app, passport);
     });
 
-    if (app.get('env') === 'development') {
-        console.log(controllers);
-        console.log(middlewares);
-        console.log(passport);
-    }
-
     var localCtrl = controllers.auth.local;
     var adminCtrl = controllers.admin;
     var midAuth = middlewares.authorization;
@@ -75,6 +69,10 @@ module.exports = function(app, passport) {
     //后台鉴权
     routerPage.use(['/admin', '/admin/*'], midAuth.admin.hasAuthorization);
     //后台管理路由
+    routerPage.route('/admin/login')
+        .get(adminCtrl.auth.login)
+        .post(adminCtrl.auth.doLogin);
+    routerPage.get('/admin/logout', adminCtrl.auth.logout);
     routerPage.get('/admin/', adminCtrl.index.home);
     routerPage.get('/admin/users', adminCtrl.user.list);
     routerPage.get('/admin/users/add', adminCtrl.user.add);
@@ -124,7 +122,7 @@ module.exports = function(app, passport) {
 
     // var oauth = new oauthServer({
     //     accessTokenLifetime: configs.Oauth.accessTokenLifetime,
-    //     model: require(app.configs.path.models + 'oauth'),
+    //     model: require(app.config.models + 'oauth'),
     //     grants: ['password', 'authorization_code', 'refresh_token'],
     //     debug: true
     // });

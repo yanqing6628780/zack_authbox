@@ -2,7 +2,7 @@
 
 module.exports = function(app) {
 
-    var User = require(app.configs.path.models).user;
+    var User = require('y-config').getConfig().models.user;
 
     var exports = {};
 

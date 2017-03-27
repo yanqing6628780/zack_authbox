@@ -8,17 +8,11 @@ module.exports = function(sequelize, DataTypes) {
         MAX_ATTEMPTS: 1,
         BAN: 2
     };
-    var User = sequelize.define("user", {
+    var model = sequelize.define("admin", {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
-        },
-        id_card: {
-            type: DataTypes.STRING(18),
-            allowNull: false,
-            primaryKey: true,
-            unique: true
         },
         username: {
             type: DataTypes.STRING(32),
@@ -31,36 +25,12 @@ module.exports = function(sequelize, DataTypes) {
                 val = bcrypt.hashSync(val.trim());
                 this.setDataValue('password', val);
             }
-        },
-        email: {
-            type: DataTypes.STRING(128),
-            allowNull: false
-        },
-        gender: {
-            type: DataTypes.ENUM,
-            values: ['男', '女', '保密']
-        },
-        age: {
-            type: DataTypes.INTEGER.UNSIGNED
-        },
-        address: {
-            type: DataTypes.STRING(256)
-        },
-        phone: {
-            type: DataTypes.STRING(11)
-        },
-        name: {
-            type: DataTypes.STRING(8)
-        },
-        is_ban: {
-            type: DataTypes.BOOLEAN
-        },
-        // 用户等级: 0: 普通会员 1:付费会员
-        level: {
-            type: DataTypes.INTEGER(1)
         }
     }, {
         classMethods: {
+            associate: function(models) {
+                model.belongsTo(models.admin_role, {as: 'role'});
+            },
             getFailReasons: function() {
                 return reasons;
             },
@@ -96,5 +66,5 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
 
-    return User;
+    return model;
 };

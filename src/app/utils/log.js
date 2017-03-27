@@ -28,7 +28,7 @@ log4js.configure({
         dateFileLog: 'INFO',
         modelsLog: 'INFO'
     }
-}, { cwd: config.path.logs });
+}, { cwd: configs.logs });
 
 exports.dateLogger = log4js.getLogger('dateFileLog');
 exports.modelsLogger = log4js.getLogger('modelsLog');

@@ -8,12 +8,13 @@ module.exports = function(app, passport) {
         res.redirect('/login');
     };
 
-
     exports.admin = {
         hasAuthorization: function(req, res, next) {
-            var user = req.user;
-            if (user && user.user_type === 'admin') return next();
-            res.redirect('/login');
+            if (req.path == '/login') return next();
+            if (req.path == '/logout') return next();
+            if (req.session.admin) return next();
+
+            res.redirect('/admin/login');
         }
     }
 
