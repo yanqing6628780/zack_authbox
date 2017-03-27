@@ -10,9 +10,10 @@ var favicon = require('serve-favicon');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var configs = require('authbox-config')();
-
-configs = require('./app/utils/getIp.js')();
+const configs = require('y-config');
+configs.setConfigPath('./config/app.example.yaml');
+configs.setCustomConfigPath('./config/app.yaml');
+require('./app/utils/getIp.js');
 
 var log = require('./app/utils/log.js');
 

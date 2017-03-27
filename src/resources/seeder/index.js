@@ -1,9 +1,9 @@
 //seeder入口
-var mongoose = require('mongoose');
-var config = require('authbox-config')();
+const mongoose = require('mongoose');
+const configs = require('y-config').getConfig();
 
 //链接数据库
-var mongodbUri = 'mongodb://' + config.db.host + '/' + config.db.name;
+const mongodbUri = `mongodb://${config.db.host}/${config.db.name}`;
 
 mongoose.connect(mongodbUri, function(err, res) {
     if (err) {
