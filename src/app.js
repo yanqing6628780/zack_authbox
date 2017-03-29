@@ -10,20 +10,8 @@ var favicon = require('serve-favicon');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var configs = require('y-config');
-
-configs.setConfigPath(__dirname + '/config/app.example.yaml');
-configs.setCustomConfigPath(__dirname + '/config/app.yaml');
-configs = configs.getConfig();
-
-//设置资源文件夹绝对路径
-var pathArr = ['views', 'models', 'public', 'resource', 'logs'];
-pathArr.forEach(path => {
-    configs[path] = `${__dirname}/${configs[path]}`;
-});
-configs.models = require(configs.models);
-
-require('./app/utils/getIp.js');
+require('./app/initConfig')
+const configs = require('y-config').getConfig();
 
 var log = require('./app/utils/log.js');
 
