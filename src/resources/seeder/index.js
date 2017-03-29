@@ -1,16 +1,12 @@
 //seeder入口
-var configs = require('y-config');
-
-configs.setConfigPath('./src/config/app.example.yaml');
-configs.setCustomConfigPath('./src/config/app.yaml');
-configs = configs.getConfig();
-var models = require('../../' + configs.models);
+require('../../app/initConfig')
+var configs = require('y-config').getConfig();
+var models = configs.models;
 
 //链接数据库
-models.sequelize.sync().then(function () {
+models.sequelize.sync().then(() => {
     //将需要运行的seeder加在下面
     require('./admin.js')(models).run();
-}).catch(function(){
+}).catch(() => {
     console.error('sequelize sync fail');
 });
-
