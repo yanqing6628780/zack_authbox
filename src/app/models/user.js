@@ -38,7 +38,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         gender: {
             type: DataTypes.ENUM,
-            values: ['Male', 'Female', 'Secret']
+            values: ['male', 'female', 'secret']
         },
         age: {
             type: DataTypes.INTEGER.UNSIGNED
