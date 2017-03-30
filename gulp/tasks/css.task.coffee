@@ -16,7 +16,9 @@ module.exports = (gulp, config, $, args) ->
 
     gulp.task 'css:lib:copy', () ->
         gulp.src [
-            "#{config.bowerPath}bootstrap/dist/css/bootstrap*.css{,.map}"
+            "#{config.bowerPath}/bootstrap/dist/css/bootstrap*.css{,.map}"
+            "#{config.resource}assets/stylesheet/**/*"
+            "!#{config.resource}assets/stylesheet/**/*.styl"
         ]
             .pipe gulp.dest "#{config.target}public/stylesheets/"
 
