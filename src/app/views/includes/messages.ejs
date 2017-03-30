@@ -1,0 +1,45 @@
+<% if (messages.errors) { %>
+    <div class="alert alert-error">
+        <button class='close' type='button' data-dismiss='alert'></button>
+        <% messages.errors.forEach(function(message){  %>
+            <p>
+                <strong>Errors:</strong>
+                <span><%= message %></span>
+            </p>
+        <% }); %>
+    </div>
+<% } %>
+<% if (messages.info) { %>
+    <div class="alert alert-info">
+        <button class='close' type='button' data-dismiss='alert'></button>
+        <% messages.info.forEach(function(message){  %>
+            <p>
+                <strong>Info:</strong>
+                <span><%= message %></span>
+            </p>
+        <% }); %>
+    </div>
+<% } %>
+<% if (messages.warning) { %>
+    <div class="alert alert-warning">
+        <button class='close' type='button' data-dismiss='alert'></button>
+        <% messages.warning.forEach(function(message){  %>
+            <p>
+                <strong>Warning:</strong>
+                <span><%= message %></span>
+            </p>
+        <% }); %>
+    </div>
+<% } %>
+<% if (messages.success) { %>
+    <div class="alert alert-success">
+        <button class='close' type='button' data-dismiss = 'alert'>
+            <% messages.success.forEach(function(message){  %>
+                <p>
+                    <strong>Success:</strong>
+                    <span><%= message %></span>
+                </p>
+            <% }); %>
+        </button>
+    </div>
+<% } %>

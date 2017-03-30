@@ -27,7 +27,7 @@ app.log = log;
 app.configs = configs;
 
 // view engine setup
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 app.set('trust proxy', 1); // trust first proxy
 app.set('views', configs.views);
 app.set('port', configs.port);
