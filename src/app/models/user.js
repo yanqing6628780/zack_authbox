@@ -55,8 +55,12 @@ module.exports = function(sequelize, DataTypes) {
         is_ban: {
             type: DataTypes.BOOLEAN
         },
-        // 用户等级: 0: 普通会员 1:付费会员
+        is_review: {
+            // 是否在审核状态: 0: 否 1:是
+            type: DataTypes.BOOLEAN
+        },
         level: {
+            // 用户等级: 0: 普通会员 1:付费会员
             type: DataTypes.INTEGER(1)
         }
     }, {
