@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<%- include('../includes/head') -%>
+</head>
+<%- include('../includes/body') -%>
+
+<div class="login">
+  <div class="dialog">
+    <p class="brand">后台管理</p>
+    <div class="block">
+      <div class="block-header"><h2>登陆后台</h2></div>
+      <form method="post">
+        <div class="form-group">
+          <label>管理员名称</label>
+          <input type="text" class="form-control" name="username">
+        </div>
+        <div class="form-group">
+          <label>密码</label>
+          <input type="password" class="form-control" name="password">
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-success pull-right">登入</button>
+          <div class="clearfix"></div>
+        </div>
+      </form>
+    </div>
+    <div>
+        <%- include('../includes/messages', {messages: messages}) %>
+    </div>
+  </div>
+</div>
+<%- include('../includes/end') -%>

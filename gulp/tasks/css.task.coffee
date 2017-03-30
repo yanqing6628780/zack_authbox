@@ -4,10 +4,10 @@ module.exports = (gulp, config, $, args) ->
 
     gulp.task 'css', ['css:build', 'css:lib:copy', 'css:copy']
 
-    gulp.task 'css:build', ['css:build:root']
+    gulp.task 'css:build', ['css:build:root', 'css:lib:copy', 'css:copy']
 
     gulp.task 'css:build:root', () ->
-        gulp.src ["#{config.resource}assets/stylesheet/**/*.{css,styl}"]
+        gulp.src ["#{config.resource}assets/stylesheet/**/*.styl"]
             .pipe $.if '*.styl', $.stylus()
             .pipe $.autoprefixer '> 1% in CN', 'last 2 versions'
             .pipe $.concat 'style.css'
@@ -20,7 +20,7 @@ module.exports = (gulp, config, $, args) ->
             "#{config.resource}assets/stylesheet/**/*"
             "!#{config.resource}assets/stylesheet/**/*.styl"
         ]
-            .pipe gulp.dest "#{config.target}public/stylesheets/lib/"
+            .pipe gulp.dest "#{config.target}public/stylesheets/"
 
     gulp.task 'css:copy', () ->
         gulp.src [
