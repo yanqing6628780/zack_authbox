@@ -15,6 +15,15 @@ module.exports = function(app, passport) {
             if (req.session.admin) return next();
 
             res.redirect('/admin/login');
+        },
+        checkAuthorization: (purview) => {
+            return (req, res, next) => {
+                if (req.session.admin.admin_role[purview]) {
+                    return next();
+                } else {
+                    return  next('权限不足');
+                }
+            }
         }
     }
 
