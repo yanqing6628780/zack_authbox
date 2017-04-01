@@ -8,23 +8,11 @@
     <div id="main-menu">
         <div id="phone-navigation" class="visible-xs">
             <ul id="dashboard-menu" class="nav nav-list">
-                <li><a rel="tooltip" data-placement="right" data-original-title="会员" href="/member/"><i class="fa fa-users"></i> <span class="caption">会员（显示数量）</span></a></li>
-                <li><a rel="tooltip" data-placement="right" data-original-title="普通用户" href="/user/"><i class="fa fa-user"></i> <span class="caption">普通用户（显示数量）</span></a></li>
-                <li><a rel="tooltip" data-placement="right" data-original-title="禁用帐号" href="/disable/"><i class="fa fa-user-times"></i> <span class="caption">禁用帐号（显示数量）</span></a></li>
-                <li><a rel="tooltip" data-placement="right" data-original-title="审核信息" href="/examination/"><i class="fa fa-info-circle"></i> <span class="caption">审核信息（显示数量）</span></a></li>
-                <li><a rel="tooltip" data-placement="right" data-original-title="普通管理员" href="/admin/"><i class="fa fa-user-md"></i> <span class="caption">普通管理员</span></a></li>
-                <li><a rel="tooltip" data-placement="right" data-original-title="系统管理" href="/settings/"><i class="fa fa-cog"></i> <span class="caption">系统管理</span></a></li>
-                <li><a rel="tooltip" data-placement="right" data-original-title="登出"><i class="fa fa-sign-out"></i> <span class="caption">登出</span></a></li>
+                <%- include('./nav-li') -%>
             </ul>
         </div>
         <ul class="nav nav-tabs hidden-xs">
-            <li class=""><a href="/member/"><i class="fa fa-users"></i> <span>会员（显示数量）</span></a></li>
-            <li class=""><a href="/user/"><i class="fa fa-user"></i> <span>普通用户（显示数量）</span></a></li>
-            <li class=""><a href="/disable/"><i class="fa fa-user-times"></i> <span>禁用帐号（显示数量）</span></a></li>
-            <li class=""><a href="/examination/"><i class="fa fa-info-circle"></i> <span>审核信息（显示数量）</span></a></li>
-            <li class="active"><a href="/admin/"><i class="fa fa-user-md"></i> <span>普通管理员</span></a></li>
-            <li class=""><a href="/settings/"><i class="fa fa-cog"></i> <span>系统管理</span></a></li>
-            <li><a><i class="fa fa-sign-out"></i> <span>登出</span></a></li>
+            <%- include('./nav-li') -%>
         </ul>
     </div>
 </div>

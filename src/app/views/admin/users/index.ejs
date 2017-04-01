@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<%- include('../../includes/head') -%>
+</head>
+<%- include('../../includes/body') -%>
+
+<%- include('../../includes/nav') -%>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class='text-center'>普通管理员</h2>
+            <div class="col-md-12">
+                <%- include('../../includes/messages') -%>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>管理员名称</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% list.forEach(function(item) { %>
+                            <tr class="info">
+                                <td><%=item.username%></td>
+                                <td>
+                                    <a href='/admin/users/reset/<%=item.id%>' class="btn btn-warning">重置密码</a>
+                                </td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../../includes/foot') -%>
+</div>
+<%- include('../../includes/end') -%>

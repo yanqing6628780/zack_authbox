@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<%- include('../../includes/head') -%>
+</head>
+<%- include('../../includes/body') -%>
+
+<%- include('../../includes/nav') -%>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <form method="post" action='/admin/users/set/password'>
+                <div class="col-sm-4 col-md-offset-4">
+                    <div class="col-md-12">
+                        <h2 align="center">修改密码</h2></div>
+                    <div class="col-md-12">
+                        <h4>当前密码</h4>
+                        <p>
+                            <input class="form-control" type="text" name='old_password'>
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>新密码</h4>
+                        <p>
+                            <input class="form-control" type="text" name='new_password'>
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>确定新密码</h4>
+                        <p>
+                            <input class="form-control" type="text" name='confirm_password'>
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <button class="btn btn-success">确定</button>
+                        <% if(model) {%>
+                        <input type="hidden" name="username" value='<%=model.username%>'>
+                        <% } %>
+                    </div>
+                    <div class="col-md-12">
+                        <%- include('../../includes/messages') -%>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <%- include('../../includes/foot') -%>
+</div>
+<%- include('../../includes/end') -%>
+
+

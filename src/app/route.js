@@ -74,11 +74,28 @@ module.exports = function(app, passport) {
         .post(adminCtrl.auth.doLogin);
     routerPage.get('/admin/logout', adminCtrl.auth.logout);
     routerPage.get('/admin/', adminCtrl.index.home);
-    routerPage.get('/admin/users', adminCtrl.user.list);
+    routerPage.get(
+        '/admin/users',
+        midAuth.admin.checkAuthorization('reset_admin_password'),
+        adminCtrl.user.list
+    );
     routerPage.get('/admin/users/add', adminCtrl.user.add);
     routerPage.get('/admin/users/edit/:id', adminCtrl.user.edit);
-    routerPage.post('/admin/users/save', adminCtrl.user.save);
-    routerPage.get('/admin/users/delete/:id', adminCtrl.user.del);
+    // routerPage.get('/admin/users/delete/:id', adminCtrl.user.del);
+    // routerPage.post('/admin/users/save', adminCtrl.user.save);
+    routerPage.get(
+        '/admin/users/set/password',
+        adminCtrl.user.set.password_view
+    );
+    routerPage.post(
+        '/admin/users/set/password',
+        adminCtrl.user.set.password
+    );
+    routerPage.get(
+        '/admin/users/reset/:id',
+        midAuth.admin.checkAuthorization('reset_admin_password'),
+        adminCtrl.user.reset
+    );
 
     // catch 404 and forward to error handler
     routerPage.use(function(req, res, next) {

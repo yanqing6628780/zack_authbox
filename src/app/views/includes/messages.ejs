@@ -33,13 +33,12 @@
 <% } %>
 <% if (messages.success) { %>
     <div class="alert alert-success">
-        <button class='close' type='button' data-dismiss = 'alert'>
-            <% messages.success.forEach(function(message){  %>
-                <p>
-                    <strong>Success:</strong>
-                    <span><%= message %></span>
-                </p>
-            <% }); %>
-        </button>
+        <button class='close' type='button' data-dismiss = 'alert'></button>
+        <% messages.success.forEach(function(message){  %>
+            <p>
+                <strong>Success:</strong>
+                <span><%= message %></span>
+            </p>
+        <% }); %>
     </div>
 <% } %>
