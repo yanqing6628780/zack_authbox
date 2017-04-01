@@ -53,7 +53,7 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         classMethods: {
             associate: function(models) {
-                model.hasMany(models.admin, {as: 'users'});
+                model.hasMany(models.admin);
             }
         }
     });

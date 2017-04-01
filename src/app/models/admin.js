@@ -22,14 +22,14 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING(60),
             allowNull: false,
             set: function (val) {
-                val = bcrypt.hashSync(val.trim());
+                val = bcrypt.hashSync(val.toString().trim());
                 this.setDataValue('password', val);
             }
         }
     }, {
         classMethods: {
             associate: function(models) {
-                model.belongsTo(models.admin_role, {as: 'role'});
+                model.belongsTo(models.admin_role);
             },
             getFailReasons: function() {
                 return reasons;
@@ -38,7 +38,8 @@ module.exports = function(sequelize, DataTypes) {
                 this.findOne({
                     where: {
                         username: candidate.username
-                    }
+                    },
+                    include: [sequelize.models.admin_role]
                 }).then(function(user) {
                     if (!user) {
                         return callback(null, null, reasons.FAIL);
