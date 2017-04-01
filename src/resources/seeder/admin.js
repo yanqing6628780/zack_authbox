@@ -4,21 +4,28 @@ module.exports = function(models) {
     var exports = {};
 
     exports.run = function() {
-        Model.truncate().catch(err => console.log(err));
-
         //admin Add
-        var adminData = {
-            username: "admin",
-            password: "123456"
-        }
+        var adminData = [
+            {
+                username: "admin",
+                password: "123456",
+                adminRoleId: 1
+            },
+            {
+                username: "user",
+                password: "123456",
+                adminRoleId: 2
+            }
+        ]
 
-        Model.create(adminData)
-            .then(function(user) {
-                console.log('%s insert success.', user);
+        Model.bulkCreate(adminData)
+            .then(function(rs) {
+                console.log('%s insert success.', rs);
                 process.exit();
             })
             .catch(function(err) {
-                console.log('insert failed err: %s', err);
+                console.log('insert failed err:');
+                console.log(err);
                 process.exit();
             });
     }
