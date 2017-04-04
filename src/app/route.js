@@ -43,7 +43,7 @@ module.exports = function(app, passport) {
     var midAuth = middlewares.authorization;
     var passportOptions = {
         successRedirect: '/auth/success',
-        failureRedirect: '/login',
+        failureRedirect: '/login'
     };
 
     var routerPage = express.Router();
@@ -66,72 +66,133 @@ module.exports = function(app, passport) {
     //登录成功页
     routerPage.get('/auth/success', localCtrl.success);
 
+    app.use('/', routerPage);
     //后台鉴权
-    routerPage.use(['/admin', '/admin/*'], midAuth.admin.hasAuthorization);
+    var adminRouter = express.Router();
+    var adminUserRouter = express.Router({ mergeParams: true });
+    var adminMemberRouter = express.Router({ mergeParams: true });
+    var reviewRouter = express.Router({ mergeParams: true });
+
+    adminRouter.use(
+        ['/', '/*'],
+        midAuth.admin.hasAuthorization,
+        midAuth.admin.globalLocals
+    );
     //后台管理路由
-    routerPage.route('/admin/login')
+    adminRouter.get('/', adminCtrl.index.home);
+    adminRouter.route('/login')
         .get(adminCtrl.auth.login)
         .post(adminCtrl.auth.doLogin);
-    routerPage.get('/admin/logout', adminCtrl.auth.logout);
-    routerPage.get('/admin/', adminCtrl.index.home);
-    routerPage.get(
-        '/admin/users',
+    adminRouter.get('/logout', adminCtrl.auth.logout);
+
+    //后台用户管理
+    adminRouter.use('/users', adminUserRouter);
+    adminUserRouter.get(
+        '/',
         midAuth.admin.checkAuthorization('reset_admin_password'),
         adminCtrl.user.list
     );
-    routerPage.get('/admin/users/add', adminCtrl.user.add);
-    routerPage.get('/admin/users/edit/:id', adminCtrl.user.edit);
-    // routerPage.get('/admin/users/delete/:id', adminCtrl.user.del);
-    // routerPage.post('/admin/users/save', adminCtrl.user.save);
-    routerPage.get(
-        '/admin/users/set/password',
+    adminUserRouter.get('/add', adminCtrl.user.add);
+    adminUserRouter.get('/edit/:id', adminCtrl.user.edit);
+    // adminUserRouter.get('/admin/users/delete/:id', adminCtrl.user.del);
+    // adminUserRouter.post('/admin/users/save', adminCtrl.user.save);
+    adminUserRouter.get(
+        '/set/password',
         adminCtrl.user.set.password_view
     );
-    routerPage.post(
-        '/admin/users/set/password',
+    adminUserRouter.post(
+        '/set/password',
         adminCtrl.user.set.password
     );
-    routerPage.get(
-        '/admin/users/reset/:id',
+    adminUserRouter.get(
+        '/reset/:id',
         midAuth.admin.checkAuthorization('reset_admin_password'),
         adminCtrl.user.reset
     );
 
+    adminRouter.use('/member', adminMemberRouter);
+    adminMemberRouter.get('/', adminCtrl.member.list);
+    adminMemberRouter.get(
+        '/add', midAuth.admin.checkAuthorization('add_user'),
+        adminCtrl.member.add
+    );
+    adminMemberRouter.get(
+        '/:id/edit',
+        midAuth.admin.checkAuthorization('edit_user'),
+        adminCtrl.member.edit
+    );
+    adminMemberRouter.get(
+        '/:id/delete',
+        midAuth.admin.checkAuthorization('del_user'),
+        adminCtrl.member.del
+    );
+    adminMemberRouter.post(
+        '/save',
+        midAuth.admin.checkAuthorization('add_user'),
+        adminCtrl.member.save
+    );
+    adminMemberRouter.put(
+        '/save',
+        midAuth.admin.checkAuthorization('edit_user'),
+        adminCtrl.member.save
+    );
+    adminMemberRouter.all('/search', adminCtrl.member.search);
+    adminMemberRouter.get(
+        '/:id/reset',
+        midAuth.admin.checkAuthorization('reset_user_password'),
+        adminCtrl.member.reset
+    );
+    adminMemberRouter.get(
+        '/:id/downgrade',
+        midAuth.admin.checkAuthorization('special_edit_user'),
+        adminCtrl.member.downgrade
+    );
+    adminMemberRouter.get(
+        '/:id/ban',
+        midAuth.admin.checkAuthorization('special_edit_user'),
+        adminCtrl.member.ban
+    );
+
+    adminRouter.use(
+        '/review',
+        midAuth.admin.checkAuthorization('review_user'),
+        reviewRouter
+    );
+    reviewRouter.get('/', adminCtrl.review.list);
+    reviewRouter.get('/:id/pass', adminCtrl.review.pass);
+    reviewRouter.get('/:id/reject', adminCtrl.review.reject);
+
+    app.use('/admin', adminRouter);
+
     // catch 404 and forward to error handler
-    routerPage.use(function(req, res, next) {
+    var notFound = (req, res, next) => {
         var err = new Error('Not Found');
         err.status = 404;
-        next(err);
-    });
+        return next(err);
+    };
 
     // error handlers
-
-    // development error handler
-    // will print stacktrace
-    if (app.get('env') === 'development') {
-        routerPage.use(function(err, req, res, next) {
-            app.log.dateLogger.error('链接:' + req.originalUrl + ' 应用错误');
-            app.log.dateLogger.error(err);
+    var errroHandlers = (err, req, res, next) => {
+        // development error handler
+        // will print stacktrace
+        if (app.get('env') === 'development') {
+            console.error('链接:%s 应用错误', req.originalUrl);
+            console.error(err);
             if (res.headersSent) {
                 return next(err);
             }
-            res.status(err.status || 500);
-            res.render('error', {
-                message: err.message,
-                error: err
-            });
-        });
-    }
-
-    // production error handler
-    // no stacktraces leaked to user
-    routerPage.use(function(err, req, res, next) {
+        } else {
+            app.log.dateLogger.error('链接:' + req.originalUrl + ' 应用错误');
+            app.log.dateLogger.error(err);
+        }
+        // production error handler
+        // no stacktraces leaked to user
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
-            error: {}
+            error: err
         });
-    });
+    };
 
     //接口路由
     // var routerApi = express.Router();
@@ -159,5 +220,5 @@ module.exports = function(app, passport) {
 
     // app.use('/api/v1', routerApi);
 
-    app.use('/', routerPage);
+    app.use(notFound, errroHandlers);
 }

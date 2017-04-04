@@ -15,18 +15,15 @@ module.exports = function(models) {
                 del_user: true,
                 review_user: true,
                 reset_user_password: true,
-                reset_admin_password: true
+                reset_admin_password: true,
+                scan_all_user: true
             },
             {
                 name: "user",
                 display_name: "管理员",
                 add_user: true,
                 special_edit_user: true,
-                edit_user: true,
-                del_user: false,
-                review_user: false,
-                reset_user_password: false,
-                reset_admin_password: false
+                edit_user: true
             }
         ]
 

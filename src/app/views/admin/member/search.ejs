@@ -1,0 +1,43 @@
+<% if(result.length > 0 ) { %>
+    <% result.forEach(function (item) { %>
+    <tr class="success">
+        <td><%=item.id_card%></td>
+        <td><%=item.name%></td>
+        <td><%=item.gender=='male' ? '男' : '女'%></td>
+        <td><%=item.age%></td>
+        <td><%=item.phone%></td>
+        <td><%=item.email%></td>
+        <td><%=item.address%></td>
+        <td>
+            <% if(adminRole.edit_user) { %>
+            <% if(item.is_review) { %>
+            <a class="btn btn-success">审核中</a>
+            <% } else { %>
+            <a class="btn btn-success" href="<%=prefix_url%><%=item.id%>/edit">修改</a>
+            <% } %>
+            <% } %>
+            <% if(adminRole.reset_user_password) { %>
+            <a class="btn btn-warning" href="<%=prefix_url%><%=item.id%>/reset">重置密码</a>
+            <% } %>
+            <a class="btn btn-info" href="<%=prefix_url%><%=item.id%>/downgrade">取消会员</a>
+            <a class="btn btn-inverse" href="<%=prefix_url%><%=item.id%>/ban">禁用</a>
+            <% if(adminRole.del_user) { %>
+            <a class="btn btn-danger" href="<%=prefix_url%><%=item.id%>/delete">删除账号</a>
+            <% } %>
+        </td>
+    </tr>
+    <% }); %>
+<% } else { %>
+    <tr>
+        <td colspan="100" class="text-center">
+            没有任何匹配数据
+        </td>
+    </tr>
+    <% if(Object.keys(messages).length) { %>
+    <tr>
+        <td colspan="100">
+            <%- include('../../includes/messages') -%>
+        </td>
+    </tr>
+    <% } %>
+<% } %>

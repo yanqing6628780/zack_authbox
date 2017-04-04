@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         display_name: {
             type: DataTypes.STRING(64),
-            allowNull: false,
+            allowNull: false
         },
         add_user: {
             type: DataTypes.BOOLEAN,
@@ -31,6 +31,11 @@ module.exports = function(sequelize, DataTypes) {
             defaultValue: false
         },
         del_user: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
+        },
+        scan_all_user: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false
