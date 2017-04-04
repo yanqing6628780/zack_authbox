@@ -30,6 +30,7 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             associate: function(models) {
                 model.belongsTo(models.admin_role);
+                model.hasMany(models.review_user);
             },
             getFailReasons: function() {
                 return reasons;
