@@ -18,23 +18,37 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING(18),
             allowNull: false,
             primaryKey: true,
-            unique: true
-        },
-        username: {
-            type: DataTypes.STRING(32),
-            allowNull: false
+            validate: {
+                isUnique: function(value, next) {
+                    var self = this;
+                    User.findOne({
+                        where: { id_card: value},
+                        attributes: ['id']
+                    }).then((user) => {
+                        if(user && parseInt(self.id) !== user.id) return next('该身份证已经存在');
+                        next();
+                    }).catch((err) => {
+                        next(err);
+                    });
+                }
+            }
         },
         password: {
             type: DataTypes.STRING(60),
             allowNull: false,
-            set: function (val) {
+            set: function(val) {
                 val = bcrypt.hashSync(val.trim());
                 this.setDataValue('password', val);
             }
         },
         email: {
             type: DataTypes.STRING(128),
-            allowNull: false
+            allowNull: false,
+            validate: {
+                isEmail: {
+                    msg: 'email格式不正确'
+                }
+            }
         },
         gender: {
             type: DataTypes.ENUM,
@@ -53,25 +67,31 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING(8)
         },
         is_ban: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         },
         is_review: {
             // 是否在审核状态: 0: 否 1:是
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         },
         level: {
             // 用户等级: 0: 普通会员 1:付费会员
-            type: DataTypes.INTEGER(1)
+            type: DataTypes.INTEGER(1),
+            defaultValue: 0
         }
     }, {
         classMethods: {
+            associate: function(models) {
+                User.hasMany(models.review_user);
+            },
             getFailReasons: function() {
                 return reasons;
             },
             getAuthenticated: function(candidate, callback) {
                 this.findOne({
                     where: {
-                        username: candidate.username
+                        id_card: candidate.username
                     }
                 }).then(function(user) {
                     if (!user) {
