@@ -11,26 +11,26 @@ module.exports = function(app) {
                 adminRoleId: { gt: 1 }
             }
         }).then(function(result) {
-            res.render('admin/users/index', {
+            res.render('admin/user/', {
                 title: '后台管理员',
                 list: result
             });
         }).catch(function(err) {
             return next(err);
         });
-    }
+    };
 
-    exports.add = function(req, res, next) {
-        res.render('admin/users/form', {
-            title: '管理后台用户-添加',
+    exports.add = function(req, res) {
+        res.render('admin/user/form', {
+            title: '管理后台用户-添加'
         });
-    }
+    };
 
     exports.edit = function(req, res, next) {
         if (req.params.id) {
             User.findById(req.params.id)
                 .then(function(user) {
-                    res.render('admin/users/form', {
+                    res.render('admin/user/form', {
                         title: '管理后台用户-编辑',
                         model: user
                     });
@@ -40,7 +40,7 @@ module.exports = function(app) {
         } else {
             return res.status(404).send('Not found');
         }
-    }
+    };
 
     exports.save = function(req, res, next) {
         if (req.body.id) {
@@ -84,7 +84,7 @@ module.exports = function(app) {
                     return next(err);
                 });
         }
-    }
+    };
 
     exports.del = function(req, res, next) {
         if (req.params.id) {
@@ -95,11 +95,11 @@ module.exports = function(app) {
             });
         }
         res.redirect('/admin/users');
-    }
+    };
 
     exports.set = {
         password_view: (req, res, next) => {
-            res.render('admin/users/form', {
+            res.render('admin/user/form', {
                 title: '管理后台-密码设置',
                 model: req.session.admin
             });
@@ -127,17 +127,14 @@ module.exports = function(app) {
                         return res.redirect('back');
                     });
                 } else {
-                    var reasons = User.getFailReasons();
-                    switch (reason) {
-                        case reasons.FAIL:
-                            req.flash('errors', '原密码错误');
-                            return res.redirect('back');
-                            break;
+                    if (reason.FAIL) {
+                        req.flash('errors', '原密码错误');
+                        return res.redirect('back');
                     }
                 }
             });
         }
-    }
+    };
 
     exports.reset = function(req, res, next) {
         User.update({
@@ -152,7 +149,7 @@ module.exports = function(app) {
         }).catch((err) => {
             return next(err);
         });
-    }
+    };
 
     return exports;
-}
+};

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<%- include('../../includes/head') -%>
+</head>
+<%- include('../../includes/body') -%>
+
+<%- include('../../includes/nav') -%>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <%- include('../../includes/messages') -%>
+            </div>
+            <div class="col-md-12">
+                <h2 class="text-center">会员</h2>
+                <div class="col-sm-12">
+                    <%console.log(countData)%>
+                    <div class="row">
+                        <div class="col-md-12 search-input">         
+                            <ul class="nav nav-pills">
+                                <li role="presentation" class="active"><a href="#all" role="tab" data-toggle="tab">全部(<%=countData[0]+countData[1]%>)</a></li>
+                                <li role="presentation"><a href="#paid" role="tab" data-toggle="tab">付费会员(<%=countData[0]%>)</a></li>
+                                <li role="presentation"><a href="#normal" role="tab" data-toggle="tab">普通会员(<%=countData[1]%>)</a></li>
+                                <li role="presentation"><a href="#ban" role="tab" data-toggle="tab">禁用会员(<%=countData[2]%>)</a></li>
+                                <% if(adminRole.add_user) { %>
+                                <li role="presentation"><a class="btn btn-success" href='/admin/member/add'>添加会员</a></li>
+                                <% } %>
+                            </ul>
+                        </div>
+                        <div class="col-sm-3 search-input">
+                            <select class="form-control" id='selectField'>
+                                <option value="">请选择搜索字段</option>
+                                <option value="id_card">身份证号码</option>
+                                <option value="name">姓名</option>
+                                <option value="email">E-mail</option>
+                                <option value="gender">性别</option>
+                                <option value="age">年龄</option>
+                                <option value="address">地址</option>
+                                <option value="phone">手机</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id='fieldInputValue'>
+                                <select class="form-control dn" id='genderSelect'>
+                                    <option value='Male'>男</option>
+                                    <option value='Female'>女</option>
+                                </select>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning" onclick='search()'>搜索</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>身份证号码</th>
+                                <th>姓名</th>
+                                <th>性别</th>
+                                <th>年龄</th>
+                                <th>电话</th>
+                                <th>E-mail</th>
+                                <th>地址</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id='searchResult'>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../../includes/foot') -%>
+</div>
+<script type="text/javascript">
+var selectFieldName = null;
+var memberType = {};
+var $selectField = $('#selectField');
+var $genderSelect = $('#genderSelect');
+var $fieldInputValue = $('#fieldInputValue');
+var $searchResult = $('#searchResult');
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  var href = $(e.target).attr('href');
+  memberType = {};
+  switch (href) {
+    case '#paid':
+        memberType = {level: 1};
+        break;
+    case '#normal':
+        memberType = {level: 0};
+        break;
+    case '#ban':
+        memberType = {is_ban: 1};
+        break;
+    default:
+        memberType = {};
+  }
+  search();
+})
+$selectField.on('change', function (event) {
+    selectFieldName = $selectField.val() ? $selectField.val() : null;
+    $fieldInputValue.val('');
+    if(selectFieldName === 'gender') {
+        $genderSelect.removeClass('dn');
+        $fieldInputValue.hide();
+    } else {
+        $genderSelect.addClass('dn');
+        $fieldInputValue.show();        
+    }
+});
+var search = function () {
+    $searchResult.html('检索中...');
+    var value = selectFieldName === 'gender' ? $genderSelect.val() : $fieldInputValue.val();
+    var params = {};
+    if(selectFieldName) {
+        params[selectFieldName] = value;
+    }
+    $.ajax({
+      type: "POST",
+      url: "/admin/member/search",
+      data: $.extend(params, memberType),
+      dataType: "html"
+    }).done(function (content) {
+        $searchResult.html(content);
+    }).fail(function(){
+        $searchResult.html('服务器繁忙');
+    });
+}
+</script>
+<%- include('../../includes/end') -%>

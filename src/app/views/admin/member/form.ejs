@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<%- include('../../includes/head') -%>
+</head>
+<%- include('../../includes/body') -%>
+
+<%- include('../../includes/nav') -%>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <form method="post" action='/admin/member/save'>
+                <div class="col-sm-4 col-md-offset-4">
+                    <div class="col-md-12">
+                        <h2 align="center"><%=title%></h2>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>身份证</h4>
+                        <p>
+                        <% if(typeof(model) != 'undefined') { %>
+                            <% if(adminRole.special_edit_user) { %>
+                            <input class="form-control" type="text" name='id_card' value="<%=model.id_card%>">
+                            <% } else { %>
+                            <%=model.id_card%>
+                            <% } %>
+                        <% } else { %>
+                            <input class="form-control" type="text" name='id_card' value="">
+                        <% } %>
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>姓名</h4>
+                        <p>
+                            <% if(typeof(model) != 'undefined') { %>
+                                <% if(adminRole.special_edit_user) { %>
+                                <input class="form-control" type="text" name='name' value="<%=model.name%>">
+                                <% } else { %>
+                                <%=model.id_card%>
+                                <% } %>
+                            <% } else { %>
+                                <input class="form-control" type="text" name='name' value="">
+                            <% } %>
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>性别</h4>
+                        <p>
+                            <select class="form-control" name='gender'>
+                                <option value='Male' <%= isMale ? 'selected' : '' %> >男</option>
+                                <option value='Female' <%= isMale ? '' : 'selected' %>>女</option>
+                            </select>
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>年龄</h4>
+                        <p>
+                            <input class="form-control" type="text" name='age' value="<%=typeof(model) != 'undefined' ? model.age : ''%>">
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>电话</h4>
+                        <p>
+                            <input class="form-control" type="text" name='phone' value="<%=typeof(model) != 'undefined' ? model.phone : ''%>">
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>E-mail</h4>
+                        <p>
+                            <input class="form-control" type="text" name='email' value="<%=typeof(model) != 'undefined' ? model.email : ''%>">
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <h4>地址</h4>
+                        <p>
+                            <input class="form-control" type="text" name='address' value="<%=typeof(model) != 'undefined' ? model.address : ''%>">
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <button class="btn btn-success">确定</button>
+                        <% if(typeof(model) != 'undefined') {%>
+                        <input type="hidden" name="id" value='<%=model.id%>'>
+                        <input type="hidden" name="_method" value="put" />
+                        <% } %>
+                    </div>
+                    <div class="col-md-12">
+                        <%- include('../../includes/messages') -%>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <%- include('../../includes/foot') -%>
+</div>
+<%- include('../../includes/end') -%>
+
+

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<%- include('../../includes/head') -%>
+</head>
+<%- include('../../includes/body') -%>
+
+<%- include('../../includes/nav') -%>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <%- include('../../includes/messages') -%>
+            </div>
+            <div class="col-md-12">
+                <h2 class="text-center"><%=title%></h2>
+                <div class="col-sm-12 table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>身份证号码 (修改前)</th>
+                                <th>姓名 (修改前)</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id='searchResult'>
+                            <% rs.forEach((item) => { %>
+                            <% var key_value=JSON.parse(item.key_value) %>
+                            <tr>
+                                <td><%=key_value.id_card%> (<%=item.user.id_card%>)</td>
+                                <td><%=key_value.name%> (<%=item.user.name%>)</td>
+                                <td>
+                                    <a href="<%=`${prefix_url}/${item.id}/pass`%>" class="btn btn-success">通过</a>
+                                    <a href="<%=`${prefix_url}/${item.id}/reject`%>" class="btn btn-warning">拒接</a>
+                                </td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../../includes/foot') -%>
+</div>
+<%- include('../../includes/end') -%>
