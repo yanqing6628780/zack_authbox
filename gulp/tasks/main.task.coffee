@@ -12,12 +12,12 @@ module.exports = (gulp, config, $, args) ->
         'css:build', 'css:copy'
         'image:build'
         'dist:build'
-        # 'assert:build'
+        'asset:build'
     ]
 
     gulp.task 'live', (done) ->
         browserSync {
-            ui: 
+            ui:
                 port: 8001
             port        : 8002
             open        : false
