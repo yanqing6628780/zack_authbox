@@ -5,6 +5,7 @@ var models = configs.models;
 
 //链接数据库
 Promise.all([
+    models.sequelize.dropSchema('review_users'),
     models.sequelize.dropSchema('admins'),
     models.sequelize.dropSchema('admin_roles')
 ]).then(() => {
