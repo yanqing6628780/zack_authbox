@@ -5,8 +5,8 @@ models: './app/models'
 logs: './logs'
 public: './public'
 resource: './resource'
-Oauth:
-    accessTokenLifetime: 7200
+forgetOversecond: 7200
+accessTokenLifetime: 7200
 db:
     host: 'localhost'
     name: 'authbox'

@@ -164,6 +164,16 @@ module.exports = function(app, passport) {
 
     app.use('/admin', adminRouter);
 
+
+    const apiRouter = express.Router();
+    const apiUserCtrl = controllers.api.user;
+    apiRouter.post('/register', apiUserCtrl.actionRegister);
+    apiRouter.post('/login', apiUserCtrl.actionLogin);
+    apiRouter.post('/update', apiUserCtrl.actionUpdate);
+    apiRouter.post('/forget', apiUserCtrl.actionForget);
+    apiRouter.post('/user/info', apiUserCtrl.actionGetuser);
+    app.use('/api/v1', apiRouter);
+
     // catch 404 and forward to error handler
     var notFound = (req, res, next) => {
         var err = new Error('Not Found');

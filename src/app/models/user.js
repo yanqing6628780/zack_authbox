@@ -91,7 +91,7 @@ module.exports = function(sequelize, DataTypes) {
             getAuthenticated: function(candidate, callback) {
                 this.findOne({
                     where: {
-                        id_card: candidate.username
+                        id_card: candidate.id_card
                     }
                 }).then(function(user) {
                     if (!user) {

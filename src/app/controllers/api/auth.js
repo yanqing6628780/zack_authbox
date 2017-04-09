@@ -7,14 +7,13 @@ module.exports = function(app) {
     var exports = {};
 
     /**
-     * @api {post} /auth/login/ 登录
+     * @api {post} /login/ 登录
      * @apiVersion 0.1.0
      * @apiName doLogin
      * @apiGroup Auth
-     * @apiDescription 暂时没有什么卵用
      *
      * @apiParam {String} access_token 令牌.
-     * @apiParam {String} username 用户名.
+     * @apiParam {String} id_card 身份证.
      * @apiParam {String} password  密码
      *
      * @apiSuccessExample Success-Response:
@@ -33,7 +32,7 @@ module.exports = function(app) {
      *
      */
     exports.doLogin = function(req, res) {
-        if (!req.body.username || !req.body.password) {
+        if (!req.body.id_card || !req.body.password) {
             return res.json({ type: 'error', msg: '请填写用户名和密码' });
         }
         User.getAuthenticated(req.body, function(err, user, reason) {
@@ -49,14 +48,12 @@ module.exports = function(app) {
                 switch (reason) {
                     case reasons.FAIL:
                         return res.json({ type: 'error', msg: '用户名或密码错误' });
-                        break;
                     case reasons.MAX_ATTEMPTS:
                         return res.json({ type: 'error', msg: '登录尝试失败过多' });
-                        break;
                 }
             }
         });
-    }
+    };
 
     return exports;
-}
+};
