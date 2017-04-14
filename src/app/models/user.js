@@ -1,6 +1,7 @@
 "use strict";
 
 const bcrypt = require('bcrypt-nodejs');
+const fn = require('../utils/fn');
 
 module.exports = function(sequelize, DataTypes) {
     var reasons = {
@@ -19,7 +20,13 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             primaryKey: true,
             validate: {
-                isUnique: function(value, next) {
+                icLen: (value, next) => {
+                    if(value.length != 15 && value.length != 18) {
+                        next('身份证号必须是15位或18位');
+                    }
+                    next();
+                },
+                isUnique: (value, next) => {
                     var self = this;
                     User.findOne({
                         where: { id_card: value},
@@ -55,7 +62,10 @@ module.exports = function(sequelize, DataTypes) {
             values: ['male', 'female', 'secret']
         },
         age: {
-            type: DataTypes.INTEGER.UNSIGNED
+            type: DataTypes.INTEGER.UNSIGNED,
+            set: function(val) {
+                this.setDataValue('age', fn.getIDCardAge(this.id_card));
+            }
         },
         address: {
             type: DataTypes.STRING(256)
@@ -64,7 +74,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING(11)
         },
         name: {
-            type: DataTypes.STRING(8)
+            type: DataTypes.STRING(16)
         },
         is_ban: {
             type: DataTypes.BOOLEAN,
