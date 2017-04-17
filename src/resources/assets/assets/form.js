@@ -59,7 +59,7 @@ $('#ms-register-tab form a').first().bind('click', function(){
       return false;
     }
   }
-  if (item.pass != item.repass) {
+  if (data.pass != data.repass) {
     // TODO
     alert('密码不一致');
     return false;
