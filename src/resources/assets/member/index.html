@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>会员中心-草延龄</title>
+    <meta name="keywords" content="会员中心">
+    <meta name="description" content="会员中心会员中心会员中心会员中心会员中心会员中心会员中心会员中心会员中心会员中心。">
+    <link rel="canonical" href="http://www.gdhydec.com/member/">
+    <meta name="applicable-device" content="pc,mobile">
+    <link rel="apple-touch-icon" href="http://www.gdhydec.com/images/assets/caoyanling-icon.jpg">
+    <meta name="apple-mobile-web-app-title" content="草延龄">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/assets/application-27ce0f01bb3a28ff066e0141f02bc678.css">
+    <!--[if lt IE 9]>
+      <script src="/assets/html5shiv.min.js"></script>
+      <script src="/assets/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="sb-site-container">
+      <div class="modal modal-primary" id="ms-account-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog animated zoomIn animated-3x" role="document">
+          <div class="modal-content">
+            <div class="modal-header shadow-2dp no-pb">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">
+                  <i class="zmdi zmdi-close"></i>
+                </span>
+              </button>
+              <div class="modal-title text-center">
+                <img src="/images/assets/caoyanling-logo-navbar.png" alt="草延龄logo">
+              </div>
+              <div class="modal-header-tabs">
+                <ul class="nav nav-tabs nav-tabs-full nav-tabs-3 nav-tabs-primary" role="tablist">
+                  <li role="presentation" class="active">
+                    <a href="#ms-login-tab" aria-controls="ms-login-tab" role="tab" data-toggle="tab" class="withoutripple">
+                      <i class="zmdi zmdi-account"></i> 登陆</a>
+                  </li>
+                  <li role="presentation">
+                    <a href="#ms-register-tab" aria-controls="ms-register-tab" role="tab" data-toggle="tab" class="withoutripple">
+                      <i class="zmdi zmdi-account-add"></i> 注册</a>
+                  </li>
+                  <li role="presentation">
+                    <a href="#ms-recovery-tab" aria-controls="ms-recovery-tab" role="tab" data-toggle="tab" class="withoutripple">
+                      <i class="zmdi zmdi-key"></i> 找回密码</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="modal-body">
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="ms-login-tab">
+                  <form autocomplete="off">
+                    <fieldset>
+                      <div class="form-group label-floating">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="fa fa-id-card"></i>
+                          </span>
+                          <label class="control-label" for="ms-form-user">身份证号</label>
+                          <input type="text" id="ms-form-user" class="form-control"> </div>
+                      </div>
+                      <div class="form-group label-floating">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="zmdi zmdi-lock"></i>
+                          </span>
+                          <label class="control-label" for="ms-form-pass">密码</label>
+                          <input type="password" id="ms-form-pass" class="form-control"> </div>
+                      </div>
+                      <button class="btn btn-raised btn-block btn-primary">登入</button>
+                    </fieldset>
+                  </form>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="ms-register-tab">
+                  <form>
+                    <fieldset>
+                      <div class="form-group label-floating">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="fa fa-id-card"></i>
+                          </span>
+                          <label class="control-label" for="ms-form-user">身份证号</label>
+                          <input type="text" id="ms-form-user" class="form-control"> </div>
+                      </div>
+                      <div class="form-group label-floating">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                          </span>
+                          <label class="control-label" for="ms-form-email">姓名</label>
+                          <input type="email" id="ms-form-email" class="form-control"> </div>
+                      </div>
+                      <div class="form-group label-floating">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="fa fa-male"></i>
+                          </span>
+                          <select id="inputGen" class="form-control selectpicker">
+                            <option>男</option>
+                            <option>女</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group label-floating">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="fa fa-phone"></i>
+                          </span>
+                          <label class="control-label" for="ms-form-pass">电话</label>
+                          <input type="password" id="ms-form-pass" class="form-control"> </div>
+                      </div>
+                      <div class="form-group label-floating">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="zmdi zmdi-email"></i>
+                          </span>
+                          <label class="control-label" for="ms-form-email">Email</label>
+                          <input type="email" id="ms-form-email" class="form-control"> </div>
+                      </div>
+                      <div class="form-group label-floating">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="fa fa-map-marker"></i>
+                          </span>
+                          <label class="control-label" for="ms-form-pass">地址</label>
+                          <input type="password" id="ms-form-pass" class="form-control"> </div>
+                      </div>
+                      <div class="form-group label-floating">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="zmdi zmdi-lock"></i>
+                          </span>
+                          <label class="control-label" for="ms-form-pass">密码</label>
+                          <input type="password" id="ms-form-pass" class="form-control"> </div>
+                      </div>
+                      <div class="form-group label-floating">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="zmdi zmdi-lock"></i>
+                          </span>
+                          <label class="control-label" for="ms-form-pass">确认密码</label>
+                          <input type="password" id="ms-form-pass" class="form-control"> </div>
+                      </div>
+                      <button class="btn btn-raised btn-block btn-primary">注册</button>
+                    </fieldset>
+                  </form>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="ms-recovery-tab">
+                  <fieldset>
+                    <div class="form-group label-floating">
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-id-card"></i>
+                        </span>
+                        <label class="control-label" for="ms-form-user">身份证号</label>
+                        <input type="text" id="ms-form-user" class="form-control"> </div>
+                    </div>
+                    <div class="form-group label-floating">
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="zmdi zmdi-email"></i>
+                        </span>
+                        <label class="control-label" for="ms-form-email">Email</label>
+                        <input type="email" id="ms-form-email" class="form-control"> </div>
+                    </div>
+                    <button class="btn btn-raised btn-block btn-primary">找回密码</button>
+                  </fieldset>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <header class="ms-header ms-header-white">
+        <div class="container container-full">
+          <div class="ms-title">
+            <a href="http://www.gdhydec.com"><img src="/images/assets/caoyanling-logo.png" alt="草延龄logo"></a>
+          </div>
+          <div class="header-right">
+            <a href="http://www.gdhydec.com/member/" class="btn-circle btn-circle-primary no-focus"><i class="zmdi zmdi-account"></i></a>
+            <a href="javascript:void(0)" class="btn-ms-menu btn-circle btn-circle-primary sb-toggle-left">
+              <i class="zmdi zmdi-menu"></i>
+            </a>
+          </div>
+        </div>
+      </header>
+      <nav class="navbar navbar-static-top yamm ms-navbar ms-navbar-primary">
+        <div class="container container-full">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="http://www.gdhydec.com">
+              <img src="/images/assets/caoyanling-logo-navbar.png" alt="草延龄logo">
+            </a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class=""><a href="http://www.gdhydec.com" class="dropdown-toggle animated fadeIn animation-delay-4">首页</a></li>
+            </ul>
+          </div>
+          <a href="javascript:void(0)" class="sb-toggle-left btn-navbar-menu"><i class="zmdi zmdi-menu"></i></a>
+        </div>
+      </nav>
+      <div class="ms-hero-page-override ms-hero-img-city ms-hero-bg-primary">
+  <div class="container">
+    <div class="text-center">
+      <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5"><span>会员中心</span></h1>
+      <p class="lead lead-lg color-white text-center center-block mt-2 mw-800 text-uppercase fw-300 animated fadeInUp animation-delay-7">会员中心会员中心会员中心会员中心会员中心会员中心会员中心会员中心会员中心会员中心。</p>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="card card-hero mb-6">
+    <div class="card-block text-center">
+      <h2 class="btn btn-raised btn-warning mt-3 ">级别：会员</h2>
+      <div class="row">
+        <div class="col-md-12">
+          <p>身份证号：12345678901234567X（不可修改）</p>
+          <p>姓名：李大明（不可修改）</p>
+          <p>性别：男</p>
+          <p>年龄：30岁</p>
+          <p>电话：12345678901</p>
+          <p>E-mail：XXXXX@126.com</p>
+          <p>地址：广东省佛山市顺德区容桂街道18巷8号</p>
+          <p>如需修改身份证号和姓名请联系客服</p>
+        </div>
+        <div class="col-md-12 mt-3">
+          <div class="col-md-4 col-md-offset-4">
+            <button type="button" class="btn btn-raised btn-block btn-success" data-toggle="modal" data-target="#myModal-edit">修改信息</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal modal-success" id="myModal-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-edit">
+    <div class="modal-dialog animated zoomIn animated-3x" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="zmdi zmdi-close"></i></span></button>
+          <h3 class="modal-title" id="myModalLabel-edit">修改信息</h3>
+        </div>
+        <div class="modal-body">
+          <form autocomplete="off">
+            <fieldset>
+              <div class="form-group label-floating">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-male"></i></span>
+                  <select id="inputGen" class="form-control selectpicker">
+                    <option>男</option>
+                    <option>女</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group label-floating">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                  <label class="control-label" for="ms-form-pass">电话</label>
+                  <input type="text" id="ms-form-phone" class="form-control">
+                </div>
+              </div>
+              <div class="form-group label-floating">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
+                  <label class="control-label" for="ms-form-email">Email</label>
+                  <input type="email" id="ms-form-email" class="form-control">
+                </div>
+              </div>
+              <div class="form-group label-floating">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                  <label class="control-label" for="ms-form-pass">地址</label>
+                  <input type="text" id="ms-form-address" class="form-control">
+                </div>
+              </div>
+              <div class="form-group label-floating">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="zmdi zmdi-lock"></i></span>
+                  <label class="control-label" for="ms-form-pass">密码</label>
+                  <input type="password" id="ms-form-pass" class="form-control">
+                </div>
+              </div>
+              <div class="form-group label-floating">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="zmdi zmdi-lock"></i></span>
+                  <label class="control-label" for="ms-form-pass">确认密码</label>
+                  <input type="password" id="ms-form-repass" class="form-control">
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a type="button" class="btn btn-raised btn-primary">保存</a>
+          <a type="button" class="btn btn-raised btn-default" data-dismiss="modal" aria-label="Close">取消</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <aside class="ms-footbar">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4 ms-footer-col">
+
+
+            </div>
+            <div class="col-md-5 col-sm-7 ms-footer-col ms-footer-alt-color">
+
+            </div>
+            <div class="col-md-3 col-sm-5 ms-footer-col ms-footer-text-right">
+
+            </div>
+          </div>
+        </div>
+      </aside>
+      <footer class="ms-footer">
+        <div class="container">
+          <p>Copyright © 2015 草延龄 | <a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备xxxxxxxxx号-1</a> | <a href="http://www.gdhydec.com/Sitemap.xml" target="_blank">Sitemap</a> | 网站建设与维护：<a href="https://gdky.net" target="_blank">开源网络</a></p>
+        </div>
+      </footer>
+      <div class="btn-back-top">
+        <a href="#" data-scroll id="back-top" class="btn-circle btn-circle-primary btn-circle-sm btn-circle-raised ">
+          <i class="zmdi zmdi-long-arrow-up"></i>
+        </a>
+      </div>
+    </div>
+    <div class="ms-slidebar sb-slidebar sb-left sb-style-overlay" id="ms-slidebar">
+      <div class="sb-slidebar-container">
+        <header class="ms-slidebar-header"></header>
+        <ul class="ms-slidebar-menu" id="slidebar-menu" role="tablist" aria-multiselectable="true">
+        <li><a class="link" href="http://www.gdhydec.com"><i class="fa fa-home"></i>首页</a></li>
+        </ul>
+      </div>
+    </div>
+    <script src="/assets/application-51542546582ad41603793fff3bf9a613.js"></script>
+    <script src="member.js"></script>
+  </body>
+</html>

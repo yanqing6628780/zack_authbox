@@ -21,6 +21,9 @@
     "express-session": "^1.14.1",
     "glob": "^7.1.1",
     "log4js": "^0.6.38",
+    "lowdb": "^0.16.0",
+    "md5": "^2.2.1",
+    "moment": "^2.18.1",
     "morgan": "~1.7.0",
     "mysql": "^2.13.0",
     "oauth2-server": "^2.4.1",
@@ -28,8 +31,7 @@
     "passport-local": "^1.0.0",
     "sequelize": "^3.30.2",
     "serve-favicon": "~2.3.0",
-    "y-config": "^1.0.0",
-    "yaml-config": "^0.3.0"
+    "y-config": "^1.0.0"
   },
   "devDependencies": {
     "cheerio": "^0.22.0",

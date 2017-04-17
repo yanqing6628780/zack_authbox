@@ -57,14 +57,14 @@ module.exports = function(app, passport) {
 
     routerPage.get('/', controllers.index.home);
 
-    routerPage.get('/register', localCtrl.register);
-    routerPage.post('/register', localCtrl.doRegister);
-    routerPage.get('/login', localCtrl.login);
-    routerPage.post('/login', passport.authenticate('local', passportOptions));
-    routerPage.get('/logout', localCtrl.logout);
+    // routerPage.get('/register', localCtrl.register);
+    // routerPage.post('/register', localCtrl.doRegister);
+    // routerPage.get('/login', localCtrl.login);
+    // routerPage.post('/login', passport.authenticate('local', passportOptions));
+    // routerPage.get('/logout', localCtrl.logout);
 
     //登录成功页
-    routerPage.get('/auth/success', localCtrl.success);
+    // routerPage.get('/auth/success', localCtrl.success);
 
     app.use('/', routerPage);
     //后台鉴权
@@ -164,6 +164,16 @@ module.exports = function(app, passport) {
 
     app.use('/admin', adminRouter);
 
+
+    const apiRouter = express.Router();
+    const apiUserCtrl = controllers.api.user;
+    apiRouter.post('/register', apiUserCtrl.actionRegister);
+    apiRouter.post('/login', apiUserCtrl.actionLogin);
+    apiRouter.post('/update', apiUserCtrl.actionUpdate);
+    apiRouter.post('/forget', apiUserCtrl.actionForget);
+    apiRouter.post('/user/info', apiUserCtrl.actionGetuser);
+    app.use('/api/v1', apiRouter);
+
     // catch 404 and forward to error handler
     var notFound = (req, res, next) => {
         var err = new Error('Not Found');
@@ -221,4 +231,4 @@ module.exports = function(app, passport) {
     // app.use('/api/v1', routerApi);
 
     app.use(notFound, errroHandlers);
-}
+};

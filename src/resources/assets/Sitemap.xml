@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+   <loc>http://www.gdhydec.com</loc>
+   <lastmod>2017-04-02</lastmod>
+   <changefreq>daily</changefreq>
+   <priority>1.0</priority>
+</url>
+<url>
+   <loc>http://www.gdhydec.com/account/</loc>
+   <lastmod>2017-04-02</lastmod>
+   <changefreq>daily</changefreq>
+   <priority>0.8</priority>
+</url>
+<url>
+   <loc>http://www.gdhydec.com/member/</loc>
+   <lastmod>2017-04-02</lastmod>
+   <changefreq>daily</changefreq>
+   <priority>0.8</priority>
+</url>
+</urlset>

@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /assets/
+Disallow: /images/assets/
+Disallow: /logreport/
+Disallow: /Error.html
+Disallow: /favicon.ico
+
+Sitemap: http://www.gdhydec.com/Sitemap.xml

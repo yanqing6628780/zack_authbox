@@ -8,7 +8,7 @@ module.exports = (gulp, config, $, args) ->
 
     gulp.task 'js:build:root', () ->
         gulp.src [
-            "#{config.resource}asserts/javascripts/*.{js,coffee}"
+            "#{config.resource}assets/javascripts/*.{js,coffee}"
         ]
             .pipe $.if '*.coffee', $.coffee()
             .pipe $.concat 'script.js'
