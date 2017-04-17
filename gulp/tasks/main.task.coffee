@@ -5,7 +5,10 @@ browserSync = require 'browser-sync'
 module.exports = (gulp, config, $, args) ->
 
     gulp.task 'default', ['clean'], () ->
-        $.runSequence 'build', 'live'
+        if args.DEBUG
+            $.runSequence 'build', 'live'
+        else
+            $.runSequence 'build'
 
     gulp.task 'build', [
         'js:build', 'js:copy'
