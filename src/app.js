@@ -46,10 +46,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
-    secret: 'authbox',
+    secret: 'VYYcrQIHm05qY7lJVBiKgxh5Jn5qgvsL59jySwHP0zMhuaJbDcuzpQhpGSyqmIvu6ZJLrz4G9WN4xEcvM4D8Cx4k8SQLENkUEJiv',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false, maxAge: 2 * 60 * 100000 }
+    cookie: { httpOnly: true, secure: false, maxAge: 2 * 60 * 100000 }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
