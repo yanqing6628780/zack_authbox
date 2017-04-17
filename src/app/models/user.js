@@ -62,9 +62,14 @@ module.exports = function(sequelize, DataTypes) {
             values: ['male', 'female', 'secret']
         },
         age: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            set: function(val) {
-                this.setDataValue('age', fn.getIDCardAge(this.id_card));
+            type: DataTypes.VIRTUAL,
+            get: function() {
+                let id_card = this.getDataValue('id_card');
+                if(id_card) {
+                    return fn.getIDCardAge(id_card);
+                } else {
+                    return '';
+                }
             }
         },
         address: {
