@@ -46,7 +46,7 @@ module.exports = (gulp, config, $, args) ->
             "#{config.source}resources/assets/**/*.{js,coffee}"
         ], (event) ->
             console.log "File #{event.path} was #{event.type}"
-            $.runSequence 'js:build'
+            $.runSequence 'asset:build'
 
         gulp.watch [
             "#{config.source}resources/assets/**/*.{css,styl}"
