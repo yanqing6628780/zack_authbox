@@ -62,7 +62,7 @@ module.exports = () => {
                 if (!user) {
                     return reject(res.json({
                         type: 'error',
-                        msg: `不存在该身份证号码`
+                        msg: '身份证或者密码不正确'
                     }));
                 }
                 let objs = lowdb.get('tokens')

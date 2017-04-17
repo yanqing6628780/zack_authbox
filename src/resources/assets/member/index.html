@@ -215,7 +215,7 @@
 <div class="container">
   <div class="card card-hero mb-6">
     <div class="card-block text-center">
-      <h2 class="btn btn-raised btn-warning mt-3 ">级别：会员</h2>
+      <h2 class="btn btn-raised btn-warning mt-3">级别：<span class="js-member-level">普通用户</span></h2>
       <div class="row">
         <div class="col-md-12">
           <p>身份证号：12345678901234567X（不可修改）</p>
@@ -243,14 +243,14 @@
           <h3 class="modal-title" id="myModalLabel-edit">修改信息</h3>
         </div>
         <div class="modal-body">
-          <form autocomplete="off">
+          <form autocomplete="off" id='editForm'>
             <fieldset>
               <div class="form-group label-floating">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-male"></i></span>
                   <select id="inputGen" class="form-control selectpicker">
-                    <option>男</option>
-                    <option>女</option>
+                    <option value='male'>男</option>
+                    <option value='female'>女</option>
                   </select>
                 </div>
               </div>
