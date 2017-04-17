@@ -23,6 +23,8 @@ $('#ms-login-tab form a').first().bind('click', function(){
     if (resule.type == 'ok') {
       window.location.href = '/member/?token=' + resule.content.token;
       $('.modal .close').first().click();
+    } else {
+      alert(resule.msg);
     }
   });
   return true;
@@ -82,6 +84,8 @@ $('#ms-register-tab form a').first().bind('click', function(){
           window.location.href = '/member/?token=' + resule.content.token;
         }
       });
+    } else {
+      alert(resule.msg);
     }
   });
   return true;
@@ -116,6 +120,8 @@ $('#ms-recovery-tab form a').first().bind('click', function(){
     // TODO
     if (resule.type == 'ok') {
       $('.modal .close').first().click();
+    } else {
+      alert(resule.msg);
     }
   });
   return true;
