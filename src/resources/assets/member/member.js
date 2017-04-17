@@ -56,6 +56,27 @@ $(document).ready(function () {
       }
       $(ele).text(text);
     });
+    $('#editForm').find('input').each(function (index, ele) {
+      var value = $(ele).val();
+      switch (index) {
+        case 0:
+        value = user.phone;
+        break;
+        case 1:
+        value = user.email;
+        break;
+        case 2:
+        value = user.address;
+        break;
+      }
+      if(value) {
+        $(ele).parent().parent().addClass('is-focused').removeClass('is-empty is-focused');
+      }
+      $(ele).val(value);
+    });
+    $('#editForm #inputGen').selectpicker('val', user.gender);
+    var level = user.level == 1 ? '会员' : '普通用户';
+    $('.js-member-level').text(level);
   });
 });
 
