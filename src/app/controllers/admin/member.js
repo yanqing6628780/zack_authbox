@@ -141,7 +141,6 @@ module.exports = function(app) {
                         });
                         return _tmp;
                     }).then((data) => {
-                        console.log(data);
                         if (Object.keys(data).length > 0) {
                             Review.create({
                                 key_value: JSON.stringify(data),

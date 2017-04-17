@@ -73,7 +73,7 @@
                     <div class="col-md-12">
                         <button class="btn btn-success">确定</button>
                         <% if(typeof(model) != 'undefined') {%>
-                        <input type="hidden" name="id" value='<%=model.id%>'>
+                        <input type="hidden" name="id" value="<%=model.id%>" />
                         <input type="hidden" name="_method" value="put" />
                         <% } %>
                     </div>
