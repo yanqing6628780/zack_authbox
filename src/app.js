@@ -10,10 +10,10 @@ var favicon = require('serve-favicon');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-require('./app/initConfig')
+
+require('./app/initConfig');
 const configs = require('y-config').getConfig();
 
-var log = require('./app/utils/log.js');
 
 var app = express();
 
@@ -22,6 +22,7 @@ var logDirectory = configs.logs;
 // ensure log directory exists
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
 
+var log = require('./app/utils/log.js');
 app.log = log;
 
 app.configs = configs;
