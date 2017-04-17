@@ -82,7 +82,7 @@ $(document).ready(function () {
 
 $('#myModal-edit .modal-footer a').first().bind('click', function () {
   var _data = {
-    sex: $("#myModal-edit .modal-body #inputGen").val(),
+    gender: $("#myModal-edit .modal-body #inputGen").val(),
     phone: $("#myModal-edit .modal-body #ms-form-phone").val(),
     email: $("#myModal-edit .modal-body #ms-form-email").val(),
     address: $("#myModal-edit .modal-body #ms-form-address").val(),
@@ -96,28 +96,34 @@ $('#myModal-edit .modal-footer a').first().bind('click', function () {
     }
   }
   var CHECK_TABLE = [
-    {key: 'phone', leastLength: 11},
-    {key: 'password', leastLength: 6},
-    {key: 'email', match: /[\w-_]+@[\w-_]\.[\w-_]+/}
+    {key: 'phone', leastLength: 11, label: '电话'},
+    {key: 'password', leastLength: 6, label: '密码'},
+    {key: 'email', match: /^([\w-_]+(?:\.[\w-_]+)*)@((?:[a-z0-9]+(?:-[a-zA-Z0-9]+)*)+\.[a-z]{2,6})$/i, label: 'Email'}
   ];
   for (var item, i = 0; i < CHECK_TABLE.length; i++) {
     item = CHECK_TABLE[i];
     if (!data[item.key]) continue;
-    if (item.leastLength !== null && data[item.key].length < item.leastLength) {
-      // TODO
+    if (item.leastLength != null && data[item.key].length < item.leastLength) {
+      alert(item.label+'至少'+item.leastLength+'位');
       return false;
     }
-    if (item.match !== null && !item.match.test(data[item.key])) {
+    if (item.match != null && !item.match.test(data[item.key])) {
       // TODO
+      alert(item.label+'格式不匹配');
       return false;
     }
   }
   if (data.password && data.password != data.repassword) {
+    alert('密码不一致');
     return false;
   }
+  data.token = token;
   $.post('/api/v1/update', data, function (resule) {
     if (resule.type == 'ok') {
-      $('$myModal-edit .modal-header .close').click();
+      $('#myModal-edit').modal('hide');
+      location.reload();
+    } else {
+      alert(resule.msg);
     }
   });
 });
