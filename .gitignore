@@ -22,3 +22,5 @@ src/public/
 models-log.*
 
 yarn.lock
+
+db\.json

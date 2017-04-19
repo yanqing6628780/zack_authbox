@@ -56,6 +56,8 @@ module.exports = function(app, passport) {
     });
 
     routerPage.get('/', controllers.index.home);
+    routerPage.get('/alipay', controllers.alipay.pay);
+    routerPage.post('/alipay/notify', controllers.alipay.notify);
 
     // routerPage.get('/register', localCtrl.register);
     // routerPage.post('/register', localCtrl.doRegister);
@@ -67,7 +69,7 @@ module.exports = function(app, passport) {
     // routerPage.get('/auth/success', localCtrl.success);
 
     app.use('/', routerPage);
-    //后台鉴权
+    
     var adminRouter = express.Router();
     var adminUserRouter = express.Router({ mergeParams: true });
     var adminMemberRouter = express.Router({ mergeParams: true });

@@ -12,3 +12,11 @@ db:
     name: 'authbox'
     username: 'root'
     password: '123456'
+alipay:
+  seller_id: '2088102169583054'
+  price: '10.00'
+  appId: '2016080200148075'
+  signType: 'RSA2'
+  sandBox: true
+  gate_way: 'https://openapi.alipay.com/gateway.do'
+  gate_way_sandbox: 'https://openapi.alipaydev.com/gateway.do'

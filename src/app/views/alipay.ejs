@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<%- include('./includes/head') -%>
+</head>
+<%- include('./includes/body') -%>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <form id='form' method="post" action='<%=ali_url%>'>
+                <div class="col-sm-4 col-md-offset-4">
+                    <div class="col-md-12">
+                        <h2 align="center">升级为付费会员</h2>
+                    </div>
+                    <div class="col-md-12">
+                        <button class="btn btn-success hidden">支付</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <%- include('./includes/foot') -%>
+</div>
+<script>
+$('#form').submit();
+</script>
+<%- include('./includes/end') -%>
+
+
