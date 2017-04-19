@@ -8,10 +8,10 @@ resource: './resource'
 forgetOversecond: 7200
 accessTokenLifetime: 7200
 db:
-    host: 'localhost'
-    name: 'authbox'
-    username: 'root'
-    password: '123456'
+  host: 'localhost'
+  name: 'authbox'
+  username: 'root'
+  password: '123456'
 alipay:
   seller_id: '2088102169583054'
   price: '10.00'

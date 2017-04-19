@@ -2,7 +2,7 @@
         
 ## Start Service
 
-### Development
+### Development(开发环境)
 
 ```  
 npm install
@@ -11,7 +11,7 @@ npm install
 gulp -d  
 ```
 
-### Deploy
+### Deploy(生产环境)
 
 ```
 npm install
@@ -22,6 +22,17 @@ npm start
 ```
 
 ## Get Start
+### 配置
+在 `config` 目录下有个`app.example.yaml`文件，这是系统的默认配置。  
+如果要修改配置，请将该文件复制并重命名为`app.yaml`。系统会使用`app.yaml`内的值替换`app.example.yaml`相同名称的值。  
+例如要修改数据库配置，app.yaml内容如下：  
+
+```
+db:
+  host: 'db.mysql.com'
+  username: 'root'
+  password: '123456'
+```
 
 
 ## 目录结构
