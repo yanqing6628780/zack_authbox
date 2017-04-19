@@ -3,6 +3,7 @@
 
 var token = null;
 $(document).ready(function () {
+  var $alipay = $('#alipay');
   var searchs = window.location.search.replace(/^\?/, '').split('&');
 
   if (searchs.length === 0) {
@@ -76,6 +77,11 @@ $(document).ready(function () {
     });
     $('#editForm #inputGen').selectpicker('val', user.gender);
     var level = user.level == 1 ? '会员' : '普通用户';
+    if(user.level == 0) {
+      $alipay.attr('href', '/alipay/?token='+token)
+    } else {
+      $alipay.parent().hide();
+    }
     $('.js-member-level').text(level);
   });
 });
