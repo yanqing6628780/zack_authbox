@@ -10,6 +10,8 @@ module.exports = (gulp, config, $, args) ->
             "#{config.resource}assets/**"
             "!#{config.resource}assets/{images,javascripts,stylesheet}"
         ]
+            .pipe $.if /\.pug$/, $.pug()
+            .pipe $.if /\.coffee/, $.coffee()
         return if args.DEBUG
             process.pipe gulp.dest "#{config.source}public/"
         else

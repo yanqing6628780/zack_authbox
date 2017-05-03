@@ -19,7 +19,7 @@
       <script src="/assets/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body ng-app="zack" ng-controller="IndexCtrl">
     <div class="sb-site-container">
       <div class="modal modal-primary" id="ms-account-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog animated zoomIn animated-3x" role="document">
@@ -53,7 +53,7 @@
             <div class="modal-body">
               <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade active in" id="ms-login-tab">
-                  <form autocomplete="off">
+                  <form autocomplete="off" ng-init="login={ }">
                     <fieldset>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -61,7 +61,7 @@
                             <i class="fa fa-id-card"></i>
                           </span>
                           <label class="control-label" for="ms-form-user">身份证号</label>
-                          <input type="text" id="ms-form-user" class="form-control"> </div>
+                          <input type="text" id="ms-form-user" class="form-control" ng-model="login.id_card"> </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -69,14 +69,14 @@
                             <i class="zmdi zmdi-lock"></i>
                           </span>
                           <label class="control-label" for="ms-form-pass">密码</label>
-                          <input type="password" id="ms-form-pass" class="form-control"> </div>
+                          <input type="password" id="ms-form-pass" class="form-control" ng-model="login.password"> </div>
                       </div>
-                      <a type="button" class="btn btn-raised btn-block btn-primary">登入</a>
+                      <a type="button" class="btn btn-raised btn-block btn-primary" ng-click="action_login()">登入</a>
                     </fieldset>
                   </form>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="ms-register-tab">
-                  <form>
+                  <form autocomplete="off" ng-init="register={ }">
                     <fieldset>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -84,7 +84,7 @@
                             <i class="fa fa-id-card"></i>
                           </span>
                           <label class="control-label" for="ms-form-user">身份证号</label>
-                          <input type="text" id="ms-form-user" class="form-control"> </div>
+                          <input type="text" id="ms-form-user" class="form-control" ng-model="register.id_card"> </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -92,16 +92,16 @@
                             <i class="fa fa-user"></i>
                           </span>
                           <label class="control-label" for="ms-form-name">姓名</label>
-                          <input type="text" id="ms-form-name" class="form-control"> </div>
+                          <input type="text" id="ms-form-name" class="form-control" ng-model="register.name"> </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
                           <span class="input-group-addon">
                             <i class="fa fa-male"></i>
                           </span>
-                          <select id="inputGen" class="form-control selectpicker">
-                            <option>男</option>
-                            <option>女</option>
+                          <select id="inputGen" class="form-control selectpicker" ng-model="register.gender">
+                            <option value="male">男</option>
+                            <option value="famale">女</option>
                           </select>
                         </div>
                       </div>
@@ -111,7 +111,7 @@
                             <i class="fa fa-phone"></i>
                           </span>
                           <label class="control-label" for="ms-form-phone">电话</label>
-                          <input type="text" id="ms-form-phone" class="form-control"> </div>
+                          <input type="text" id="ms-form-phone" class="form-control" ng-model="register.phone"> </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -119,7 +119,7 @@
                             <i class="zmdi zmdi-email"></i>
                           </span>
                           <label class="control-label" for="ms-form-email">Email</label>
-                          <input type="email" id="ms-form-email" class="form-control"> </div>
+                          <input type="email" id="ms-form-email" class="form-control" ng-model="register.email"> </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -127,7 +127,7 @@
                             <i class="fa fa-map-marker"></i>
                           </span>
                           <label class="control-label" for="ms-form-address">地址</label>
-                          <input type="text" id="ms-form-address" class="form-control"> </div>
+                          <input type="text" id="ms-form-address" class="form-control" ng-model="register.address"> </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -135,7 +135,7 @@
                             <i class="zmdi zmdi-lock"></i>
                           </span>
                           <label class="control-label" for="ms-form-pass">密码</label>
-                          <input type="password" id="ms-form-pass" class="form-control"> </div>
+                          <input type="password" id="ms-form-pass" class="form-control" ng-model="register.pass"> </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -143,33 +143,33 @@
                             <i class="zmdi zmdi-lock"></i>
                           </span>
                           <label class="control-label" for="ms-form-repass">确认密码</label>
-                          <input type="password" id="ms-form-repass" class="form-control"> </div>
+                          <input type="password" id="ms-form-repass" class="form-control" ng-model="register.repass"> </div>
                       </div>
-                      <a type="button" class="btn btn-raised btn-block btn-primary">注册</a>
+                      <a type="button" class="btn btn-raised btn-block btn-primary" ng-click="action_register()">注册</a>
                     </fieldset>
                   </form>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="ms-recovery-tab">
-                  <form>
-                  <fieldset>
-                    <div class="form-group label-floating">
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="fa fa-id-card"></i>
-                        </span>
-                        <label class="control-label" for="ms-form-user">身份证号</label>
-                        <input type="text" id="ms-form-user" class="form-control"> </div>
-                    </div>
-                    <div class="form-group label-floating">
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="zmdi zmdi-email"></i>
-                        </span>
-                        <label class="control-label" for="ms-form-email">Email</label>
-                        <input type="email" id="ms-form-email" class="form-control"> </div>
-                    </div>
-                    <a type="button" class="btn btn-raised btn-block btn-primary">找回密码</a>
-                  </fieldset>
+                  <form autocomplete="off" ng-init="recovery={ }">
+                      <fieldset>
+                        <div class="form-group label-floating">
+                          <div class="input-group">
+                            <span class="input-group-addon">
+                              <i class="fa fa-id-card"></i>
+                            </span>
+                            <label class="control-label" for="ms-form-user">身份证号</label>
+                            <input type="text" id="ms-form-user" class="form-control" ng-model="recovery.id_card"> </div>
+                        </div>
+                        <div class="form-group label-floating">
+                          <div class="input-group">
+                            <span class="input-group-addon">
+                              <i class="zmdi zmdi-email"></i>
+                            </span>
+                            <label class="control-label" for="ms-form-email">Email</label>
+                            <input type="email" id="ms-form-email" class="form-control" ng-model="recovery.email"> </div>
+                        </div>
+                        <a type="button" class="btn btn-raised btn-block btn-primary" ng-click="action_recovery()">找回密码</a>
+                      </fieldset>
                   </form>
                 </div>
               </div>
@@ -182,7 +182,12 @@
           <div class="ms-title">
             <a href="http://www.gdhydec.com"><img src="/images/assets/caoyanling-logo.png" alt="草延龄logo"></a>
           </div>
-          <div class="header-right"><a href="javascript:void(0)" class="btn-circle btn-circle-primary no-focus" data-toggle="modal" data-target="#ms-account-modal"><i class="zmdi zmdi-account"></i></a>
+          <div class="header-right">
+            <a href="javascript:void(0)" class="btn-circle btn-circle-primary no-focus" data-toggle="modal" data-target="#ms-account-modal" ng-hide="logined">
+              <i class="zmdi zmdi-account"></i>
+            </a>
+            <a href="/member/" ng-show="logined" ng-bind="auth.id_card">
+            </a>
             <a href="javascript:void(0)" class="btn-ms-menu btn-circle btn-circle-primary sb-toggle-left">
               <i class="zmdi zmdi-menu"></i>
             </a>
@@ -555,6 +560,8 @@
       </div>
     </div>
     <script src="/assets/application-51542546582ad41603793fff3bf9a613.js"></script>
+    <script src="https://cdn.bootcss.com/angular.js/1.2.32/angular.min.js"></script>
     <script src="/assets/form.js"></script>
+    <script src="/assets/checker.js"></script>
   </body>
 </html>
