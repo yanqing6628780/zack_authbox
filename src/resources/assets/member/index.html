@@ -220,7 +220,10 @@
 <div class="container">
   <div class="card card-hero mb-6">
     <div class="card-block text-center">
-      <h2 class="btn btn-raised btn-warning mt-3">级别：<span class="js-member-level">普通用户</span></h2>
+      <h2 class="btn btn-raised btn-warning mt-3">级别：
+        <span class="js-member-level" ng-if="user.level==1">会员</span>
+        <span class="js-member-level" ng-if="user.level!=1">普通用户</span>
+      </h2>
       <div class="row">
         <div class="col-md-12">
           <p>身份证号：<span ng-bind="user.id_card">12345678901234567X</span>（不可修改）</p>
@@ -234,7 +237,7 @@
         </div>
         <div class="col-md-12 mt-3">
           <div class="col-md-4 col-md-offset-4">
-            <a id='alipay' class='btn btn-info btn-raised' href=''>升级为付费用户</a>
+            <a id='alipay' class='btn btn-info btn-raised' ng-href='/alipay/?token={{auth.token}}' ng-if="user.level!=1">升级为付费用户</a>
             <button type="button" class="btn btn-raised btn-success" data-toggle="modal" data-target="#myModal-edit">修改信息</button>
           </div>
         </div>
@@ -254,7 +257,7 @@
               <div class="form-group label-floating">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-male"></i></span>
-                  <select id="inputGen" class="form-control selectpicker">
+                  <select id="inputGen" class="form-control selectpicker" ng-model="user.gender">
                     <option value='male'>男</option>
                     <option value='female'>女</option>
                   </select>
@@ -264,7 +267,7 @@
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                   <label class="control-label" for="ms-form-pass">电话</label>
-                  <input type="text" id="ms-form-phone" class="form-control">
+                  <input type="text" id="ms-form-phone" class="form-control" ng-model="user.phone">
                 </div>
               </div>
               <div class="form-group label-floating">
@@ -278,28 +281,28 @@
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                   <label class="control-label" for="ms-form-pass">地址</label>
-                  <input type="text" id="ms-form-address" class="form-control">
+                  <input type="text" id="ms-form-address" class="form-control" ng-model="user.address">
                 </div>
               </div>
               <div class="form-group label-floating">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="zmdi zmdi-lock"></i></span>
                   <label class="control-label" for="ms-form-pass">密码</label>
-                  <input type="password" id="ms-form-pass" class="form-control">
+                  <input type="password" id="ms-form-pass" class="form-control" ng-model="user.pass">
                 </div>
               </div>
               <div class="form-group label-floating">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="zmdi zmdi-lock"></i></span>
                   <label class="control-label" for="ms-form-pass">确认密码</label>
-                  <input type="password" id="ms-form-repass" class="form-control">
+                  <input type="password" id="ms-form-repass" class="form-control" ng-model="user.repass">
                 </div>
               </div>
             </fieldset>
           </form>
         </div>
         <div class="modal-footer">
-          <a type="button" class="btn btn-raised btn-primary">保存</a>
+          <a type="button" class="btn btn-raised btn-primary" ng-click="action_edit()">保存</a>
           <a type="button" class="btn btn-raised btn-default" data-dismiss="modal" aria-label="Close">取消</a>
         </div>
       </div>

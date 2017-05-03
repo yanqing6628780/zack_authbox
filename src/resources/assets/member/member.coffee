@@ -50,3 +50,19 @@ app.controller 'MenberCtrl', ($scope, $http, Checker) ->
             return
 
         $scope.user = _data.content
+
+    $scope.action_edit = ->
+        data = {
+            token : $scope.auth.token
+        }
+        (data[key] = value) for key, value of $scope.user
+        $http.post('/api/v1/update', data).then (resule) ->
+            resule = if resule.data? then resule.data else resule
+            if (resule.type == 'ok') {
+                $('#myModal-edit').modal('hide');
+                location.reload();
+            } else {
+                alert(resule.msg);
+            }
+        });
+        return true
