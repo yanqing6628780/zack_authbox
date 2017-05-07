@@ -1,0 +1,27 @@
+header.ms-header.ms-header-white
+  .container.container-full
+    .ms-title
+      a(href='http://www.gdhydec.com')
+        img(src='/images/assets/caoyanling-logo.png', alt='草延龄logo')
+    .header-right
+      a.btn-circle.btn-circle-primary.no-focus(
+        href='javascript:void(0);'
+        data-toggle='modal'
+        data-target='#ms-account-modal'
+        ng-hide='logined'
+      )
+        i.zmdi.zmdi-account
+      a(
+        ng-show-start='logined'
+        ng-bind='auth.id_card'
+      )
+      a(
+        href="javascript:void(0);"
+        ng-show-end
+        ng-click="action_logout()"
+        style="margin-left: 10px;"
+      ) 退出
+      a.btn-ms-menu.btn-circle.btn-circle-primary.sb-toggle-left(
+        href='javascript:void(0);'
+      )
+        i.zmdi.zmdi-menu

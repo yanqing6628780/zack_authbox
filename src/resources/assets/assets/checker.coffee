@@ -5,8 +5,13 @@ app = angular.module('zack')
 app.constant 'CHECKSET', {
     'id_card':
         label: '身份证号码'
-        length: 18
-        match: /^\d{17}[\dX]$/i
+        match: ///
+            ^\d{6}
+            (19|20)\d{2} # 年份
+            (0[1-9]|1[0-2]) # 月份
+            ([0-2][1-9]|3[0-1]) # 日期
+            \d{3}[\dX]$
+        ///i
     'name':
         label: '姓名'
     'gender':
@@ -46,9 +51,9 @@ app.service 'Checker', (CHECKSET) ->
                     value.length isnt _checkset.length
                 alert "#{_checkset.label}长度必须为#{_checkset.length}位"
                 return false
-            console.log _checkset
             if _checkset.minLength? and
                     value.length < _checkset.minLength
+                console.log value
                 alert "#{_checkset.label}长度最少#{_checkset.minLength}位"
                 return false
             if _checkset.maxLength? and

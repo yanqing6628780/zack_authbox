@@ -1,40 +1,22 @@
 'use strict'
 
-app = angular.module('zack', [ ], angular.noop)
+app = angular.module('zack')
 
-app.controller 'IndexCtrl', ($scope, $http, Checker) ->
+app.controller 'IndexCtrl', ($scope, $rootScope, $http, Checker) ->
 
-    $scope.logined = false
-    $scope.auth = null
+    console.log 'IndexCtrl'
 
-    zack = if localStorage.getItem('zack')?
-        JSON.parse localStorage.getItem 'zack'
-    else
-        null
-    if zack?.auth?.token? and
-            zack?.auth?.id_card?
-        # Use Localstroage
-        $scope.logined = true
-        $scope.auth = zack.auth
-    else
-        # Use Search
-        searchs = window.location.search
-                .replace(/^\?/, '')
-                .split('&');
+    $scope.mode = 'login'
 
-        search = { };
-        for item in searchs
-            [key, value] = item.split '='
-            search[key] = value
-            continue
+    $scope.changeMode = (mode) ->
+        $rootScope.$broadcast 'changeMode', mode
+        return true
 
-        if search.token? and search.id_card?
-            $scope.logined = true
-            $scope.auth = {
-                id_card: search.id_card
-                token: search.token
-            }
+    $scope.$on 'changeMode', (_, mode) ->
+        $scope.mode = mode
+        return
 
+    zack = { }
     loginFn = (id_card, password) ->
 
         $http.post('/api/v1/login', {
@@ -55,11 +37,17 @@ app.controller 'IndexCtrl', ($scope, $http, Checker) ->
             """
             return true
 
+    # # # # # Login Start # # # # #
+
     $scope.action_login = ->
         data = $scope.login
         return false if not Checker.check data
 
-        loginFn(data.id_card, data.password)
+        loginFn(data.id_card, data.pass)
+
+    # # # # # Login End # # # # #
+
+    # # # # # Register End # # # # #
 
     $scope.action_register = ->
         data = $scope.register
@@ -79,15 +67,40 @@ app.controller 'IndexCtrl', ($scope, $http, Checker) ->
             return false if _data.type isnt 'ok'
             loginFn(data.id_card, data.password)
 
+    # # # # # Register End # # # # #
+
+    # # # # # Rocovery Start # # # # #
+
+    $scope.$on 'changeMode', (_, mode) ->
+        return if mode isnt 'recovery'
+        $scope.recovery = { }
+        return
+
     $scope.action_recovery = ->
         data = $scope.recovery
         return false if not Checker.check data
 
-        $http.post('/api/v1/forget', {
+        postData = {
             id_card: data.id_card
             email: data.email
-        }).then (res) ->
+        }
+
+        if data.token?
+            postData['token'] = data.token
+            postData['password'] = data.pass
+
+        $http.post('/api/v1/forget', postData).then (res) ->
             _data = if res.data? then res.data else res
             console.log 'recovery', _data
-            return false if _data.type isnt 'ok'
-            # TODO
+            if _data.type isnt 'ok'
+                alert _data.msg
+                return false
+
+            if not postData.token?
+                $scope.recovery.token = _data.content.token
+            else
+                loginFn(postData.id_card, postData.password)
+
+    # # # # # Rocovery End # # # # #
+
+    return
