@@ -1,0 +1,225 @@
+extends ./template/base
+
+block title
+  title 草延龄
+
+block keywords
+  meta(name='keywords', content='草延龄')
+
+block description
+  meta(name='description', content='草延龄。')
+
+block canonical
+  link(rel='canonical', href='http://www.gdhydec.com/')
+
+block content
+block content
+  .ms-hero-page-override.ms-hero-img-city.ms-hero-bg-primary
+    .container(ng-controller="IndexCtrl")
+      .text-center
+        h1.no-m.ms-site-title.color-white.center-block.ms-site-title-lg.mt-2.animated.zoomInDown.animation-delay-5
+          span(ng-if="mode=='login'") 登录
+          span(ng-if="mode=='register'") 注册
+          span(ng-if="mode=='recovery'") 找回密码
+        p.lead.lead-lg.color-white.text-center.center-block.mt-2.mw-800.text-uppercase.fw-300.animated.fadeInUp.animation-delay-7
+          span(ng-if="mode=='login'") 登录
+          span(ng-if="mode=='register'") 注册
+          span(ng-if="mode=='recovery'") 找回密码
+  .container(ng-controller="IndexCtrl")
+    .card.card-hero.mb-6
+      .card-block.text-center
+        .row
+          .col-md-12(ng-hide="mode=='recovery'")
+            ul.nav.nav-tabs.nav-tabs-full.nav-tabs-2.nav-tabs-primary(
+              role="tablist"
+            )
+              li.active(
+                role="presentation"
+                ng-click="changeMode('login')"
+              )
+                a.withoutripple(
+                  role="tab"
+                )
+                  i.zmdi 登录
+              li(
+                role="presentation"
+                ng-click="changeMode('register')"
+              )
+                a.withoutripple(
+                  role="tab"
+                )
+                  i.zmdi 注册
+          //- Login Form
+          form.col-md-12.mt-3(
+            autocomplete='off'
+            ng-init="login={ }"
+            ng-show="mode=='login'"
+          )
+            fieldset
+              .form-group.label-floating
+                .input-group
+                  span.input-group-addon
+                    i.fa.fa-id-card
+                  label.control-label(for='ms-form-user') 身份证号
+                  input#ms-form-user.form-control(
+                    type='text'
+                    ng-model='login.id_card'
+                  )
+              .form-group.label-floating
+                .input-group
+                  span.input-group-addon
+                    i.zmdi.zmdi-lock
+                  label.control-label(for='ms-form-pass') 密码
+                  input#ms-form-pass.form-control(
+                    type='password'
+                    ng-model='login.pass'
+                  )
+              a.btn.btn-raised.btn-block.btn-primary(
+                type='button'
+                ng-click='action_login()'
+              ) 登入
+              a.btn.btn-raised.btn-block.btn-info(
+                type='button'
+                ng-click="changeMode('recovery')"
+              ) 忘记密码
+          //- Register Form
+          form.col-md-12.mt-3(
+            autocomplete='off'
+            ng-init="register={ gender: 'male' }"
+            ng-show="mode=='register'"
+          )
+            fieldset
+              .form-group.label-floating
+                .input-group
+                  span.input-group-addon
+                    i.fa.fa-id-card
+                  label.control-label(for='ms-form-user') 身份证号
+                  input#ms-form-user.form-control(
+                    type='text'
+                    ng-model='register.id_card'
+                  )
+              .form-group.label-floating
+                .input-group
+                  span.input-group-addon
+                    i.fa.fa-user
+                  label.control-label(for='ms-form-name') 姓名
+                  input#ms-form-name.form-control(
+                    type='text'
+                    ng-model='register.name'
+                  )
+              .form-group.label-floating
+                .input-group
+                  span.input-group-addon
+                    i.fa.fa-male
+                  select#inputGen.form-control.selectpicker(
+                    ng-model='register.gender'
+                  )
+                    option(value='male') 男
+                    option(value='famale') 女
+              .form-group.label-floating
+                .input-group
+                  span.input-group-addon
+                    i.fa.fa-phone
+                  label.control-label(for='ms-form-phone') 电话
+                  input#ms-form-phone.form-control(
+                    type='text'
+                    ng-model='register.phone'
+                  )
+              .form-group.label-floating
+                .input-group
+                  span.input-group-addon
+                    i.zmdi.zmdi-email
+                  label.control-label(for='ms-form-email') Email
+                  input#ms-form-email.form-control(
+                    type='email'
+                    ng-model='register.email'
+                  )
+              .form-group.label-floating
+                .input-group
+                  span.input-group-addon
+                    i.fa.fa-map-marker
+                  label.control-label(for='ms-form-address') 地址
+                  input#ms-form-address.form-control(
+                    type='text'
+                    ng-model='register.address'
+                  )
+              .form-group.label-floating
+                .input-group
+                  span.input-group-addon
+                    i.zmdi.zmdi-lock
+                  label.control-label(for='ms-form-pass') 密码
+                  input#ms-form-pass.form-control(
+                    type='password'
+                    ng-model='register.pass'
+                  )
+              .form-group.label-floating
+                .input-group
+                  span.input-group-addon
+                    i.zmdi.zmdi-lock
+                  label.control-label(for='ms-form-repass') 确认密码
+                  input#ms-form-repass.form-control(
+                    type='password'
+                    ng-model='register.repass'
+                  )
+              a.btn.btn-raised.btn-block.btn-primary(
+                type='button'
+                ng-click='action_register()'
+              ) 注册
+          //- Recovery Form
+          form.col-md-12.mt-3(
+            autocomplete='off'
+            ng-init="recovery={ }"
+            ng-show="mode=='recovery'"
+          )
+            fieldset
+              .form-group.label-floating
+                .input-group
+                  span.input-group-addon
+                    i.fa.fa-id-card
+                  label.control-label(for='ms-form-user') 身份证号
+                  input#ms-form-user.form-control(
+                    type='text'
+                    ng-model='recovery.id_card'
+                    ng-disabled="!!recovery.token"
+                  )
+              .form-group.label-floating
+                .input-group
+                  span.input-group-addon
+                    i.zmdi.zmdi-email
+                  label.control-label(for='ms-form-email') Email
+                  input#ms-form-email.form-control(
+                    type='email'
+                    ng-model='recovery.email'
+                    ng-disabled="!!recovery.token"
+                  )
+              .form-group.label-floating(ng-if-start="recovery.token")
+                .input-group
+                  span.input-group-addon
+                    i.zmdi.zmdi-lock
+                  label.control-label(for='ms-form-pass') 密码
+                  input#ms-form-pass.form-control(
+                    type='password'
+                    ng-model='recovery.pass'
+                  )
+              .form-group.label-floating(ng-if-end)
+                .input-group
+                  span.input-group-addon
+                    i.zmdi.zmdi-lock
+                  label.control-label(for='ms-form-repass') 确认密码
+                  input#ms-form-repass.form-control(
+                    type='password'
+                    ng-model='recovery.repass'
+                  )
+              a.btn.btn-raised.btn-block.btn-primary(
+                type='button'
+                ng-click='action_recovery()'
+                ng-bind="{{!recovery.token?'找回密码':'重置密码'}}"
+              ) 找回密码
+              a.btn.btn-raised.btn-block.btn-info(
+                type='button'
+                ng-click="changeMode('login')"
+              ) 回到登录页
+
+block append body
+  script(src='/javascripts/index.js')
+  script(src='/assets/checker.js')

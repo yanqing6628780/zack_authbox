@@ -43,7 +43,7 @@ module.exports = (gulp, config, $, args) ->
             $.runSequence 'apidoc'
 
         gulp.watch [
-            "#{config.source}resources/assets/**/*.{js,coffee}"
+            "#{config.source}resources/assets/**/*.{js,coffee,pug}"
         ], (event) ->
             console.log "File #{event.path} was #{event.type}"
             $.runSequence 'asset:build'

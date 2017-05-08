@@ -1,0 +1,39 @@
+doctype html
+html(lang='zh')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    block title
+      title 草延龄
+    block keywords
+      meta(name='keywords', content='草延龄')
+    block description
+      meta(name='description', content='草延龄。')
+    block canonical
+      link(rel='canonical', href='http://www.gdhydec.com/')
+    meta(name='applicable-device', content='pc,mobile')
+    link(rel='apple-touch-icon', href='http://www.gdhydec.com/images/assets/caoyanling-icon.jpg')
+    meta(name='apple-mobile-web-app-title', content='草延龄')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
+    link(rel='stylesheet', href='/assets/application-27ce0f01bb3a28ff066e0141f02bc678.css')
+    //if lt IE 9
+      script(src='/assets/html5shiv.min.js')
+      script(src='/assets/respond.min.js')
+  body(
+    ng-app="zack"
+    ng-controller="BaseController"
+  )
+    block body
+      .sb-site-container
+        include ./header
+        include ./nav
+        block content
+        include ./aside
+        include ./footer
+        include ./top_button
+      include ./slidebar
+      script(src='/assets/application-51542546582ad41603793fff3bf9a613.js')
+      script(src='https://cdn.bootcss.com/angular.js/1.2.32/angular.min.js')
+      script(src='/javascripts/base.js')

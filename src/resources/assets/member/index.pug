@@ -1,0 +1,117 @@
+extends ../template/base
+
+block title
+  title 会员中心-草延龄
+
+block keywords
+  meta(name='keywords', content='会员中心')
+
+block description
+  meta(name='description', content='会员中心')
+
+block canonical
+  link(rel='canonical', href='http://www.gdhydec.com/member/')
+
+block content
+  .ms-hero-page-override.ms-hero-img-city.ms-hero-bg-primary
+    .container
+      .text-center
+        h1.no-m.ms-site-title.color-white.center-block.ms-site-title-lg.mt-2.animated.zoomInDown.animation-delay-5
+          span 会员中心
+        p.lead.lead-lg.color-white.text-center.center-block.mt-2.mw-800.text-uppercase.fw-300.animated.fadeInUp.animation-delay-7 会员中心
+  .container(ng-controller="MenberCtrl")
+    .card.card-hero.mb-6
+      .card-block.text-center
+        h2.btn.btn-raised.btn-warning.mt-3
+          | 级别：
+          span.js-member-level(ng-if='user.level==1') 会员
+          span.js-member-level(ng-if='user.level!=1') 普通用户
+        .row
+          .col-md-12
+            p
+              | 身份证号：
+              span(ng-bind='user.id_card') 12345678901234567X
+              | （不可修改）
+            p
+              | 姓名：
+              span(ng-bind='user.name') 李大明
+              | （不可修改）
+            p
+              | 性别：
+              span(ng-bind="user.gender=='male'?'男':'女'") 男
+            p
+              | 年龄：
+              span(ng-bind='user.age') 30
+              | 岁
+            p
+              | 电话：
+              span(ng-bind='user.phone') 12345678901
+            p
+              | E-mail：
+              span(ng-bind='user.email') XXXXX@126.com
+            p
+              | 地址：
+              span(ng-bind='user.address') 广东省佛山市顺德区容桂街道18巷8号
+            p 如需修改身份证号和姓名请联系客服
+          .col-md-12.mt-3
+            .col-md-4.col-md-offset-4
+              a#alipay.btn.btn-info.btn-raised(ng-href='/alipay/?token={{auth.token}}', ng-if='user.level!=1') 升级为付费用户
+              button.btn.btn-raised.btn-success(type='button', data-toggle='modal', data-target='#myModal-edit') 修改信息
+    #myModal-edit.modal.modal-success(tabindex='-1', role='dialog', aria-labelledby='myModalLabel-edit')
+          .modal-dialog.animated.zoomIn.animated-3x(role='document')
+            .modal-content
+              .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                  span(aria-hidden='true')
+                    i.zmdi.zmdi-close
+                h3#myModalLabel-edit.modal-title 修改信息
+              .modal-body
+                form#editForm(autocomplete='off')
+                  fieldset
+                    .form-group.label-floating
+                      .input-group
+                        span.input-group-addon
+                          i.fa.fa-male
+                        select#inputGen.form-control.selectpicker(ng-model='editUser.gender')
+                          option(value='male') 男
+                          option(value='female') 女
+                    .form-group.label-floating
+                      .input-group
+                        span.input-group-addon
+                          i.fa.fa-phone
+                        label.control-label(for='ms-form-pass') 电话
+                        input#ms-form-phone.form-control(type='text', ng-model="editUser.phone")
+                    .form-group.label-floating
+                      .input-group
+                        span.input-group-addon
+                          i.zmdi.zmdi-email
+                        label.control-label(for='ms-form-email') Email
+                        input#ms-form-email.form-control(
+                          type='email'
+                          ng-model="editUser.email"
+                        )
+                    .form-group.label-floating
+                      .input-group
+                        span.input-group-addon
+                          i.fa.fa-map-marker
+                        label.control-label(for='ms-form-pass') 地址
+                        input#ms-form-address.form-control(type='text', ng-model="editUser.address")
+                    .form-group.label-floating
+                      .input-group
+                        span.input-group-addon
+                          i.zmdi.zmdi-lock
+                        label.control-label(for='ms-form-pass') 密码
+                        input#ms-form-pass.form-control(type='password', ng-model="editUser.pass")
+                    .form-group.label-floating
+                      .input-group
+                        span.input-group-addon
+                          i.zmdi.zmdi-lock
+                        label.control-label(for='ms-form-pass') 确认密码
+                        input#ms-form-repass.form-control(type='password', ng-model="editUser.repass")
+              .modal-footer
+                a.btn.btn-raised.btn-primary(type='button', ng-click='action_edit()') 保存
+                a.btn.btn-raised.btn-default(type='button', data-dismiss='modal', aria-label='Close') 取消
+
+block append body
+  script(src='/javascripts/member.js')
+  script(src='/assets/checker.js')
