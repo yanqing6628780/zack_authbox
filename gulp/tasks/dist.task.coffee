@@ -12,6 +12,7 @@ module.exports = (gulp, config, $, args) ->
             "#{config.source}config/**"
             "#{config.source}bin/**"
             "#{config.source}utils/**"
+            "#{config.source}pem/**"
             "#{config.source}*.json"
             "#{config.source}*.js"
         ], { base: 'src' }
