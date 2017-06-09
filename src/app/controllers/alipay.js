@@ -8,12 +8,20 @@ const config = require('y-config').getConfig();
 const apiLowdb = require('./api/common/initMemDB')();
 const User = config.models.user;
 
-module.exports = function() {
+module.exports = function () {
     var exports = {};
 
     var alipay = config.alipay;
-    alipay.rsaPrivate = fs.readFileSync(__dirname + '/../../pem/sandbox_ali_private.pem', 'utf-8');
-    alipay.rsaPublic = fs.readFileSync(__dirname + '/../../pem/sandbox_ali_public.pem', 'utf-8');
+    var pemDir = __dirname + '/../../pem/';
+    var filePrefix = alipay.sandBox ? 'sandbox_' : '';
+    var rsaPrivateFileName = filePrefix + 'ali_private.pem';
+    var rsaPublicFileName = filePrefix + 'ali_private.pem';
+    alipay.rsaPrivate = fs.readFileSync(
+        pemDir + rsaPrivateFileName, 'utf-8'
+    );
+    alipay.rsaPublic = fs.readFileSync(
+        pemDir + rsaPublicFileName, 'utf-8'
+    );
     alipay.notifyUrl = config.domainUrl + '/alipay/notify';
     alipay.geteWay = alipay.sandBox ? alipay.gate_way_sandbox : alipay.gate_way;
 
@@ -96,28 +104,32 @@ module.exports = function() {
             alipay.rsaPublic, alipay.signType
         );
         if (isSign) {
-            let order = db.get('alipay').find({ out_trade_no: out_trade_no });
-            if(order.length === 0) {
+            let order = db.get('alipay').find({
+                out_trade_no: out_trade_no
+            });
+            if (order.length === 0) {
                 res.send('fail');
             }
-            if(order[0].total_amount != seller.price) {
+            if (order[0].total_amount != seller.price) {
                 res.send('fail');
             }
-            if(seller_id != seller.id) {
+            if (seller_id != seller.id) {
                 res.send('fail');
             }
-            if(req.query.app_id != alipay.appId) {
+            if (req.query.app_id != alipay.appId) {
                 res.send('fail');
             }
             if (trade_status == 'TRADE_SUCCESS' || trade_status == 'TRADE_FINISHED') {
-                if(!order[0].trade_status) {
+                if (!order[0].trade_status) {
                     order.assign({
                         trade_status: trade_status,
                         trade_no: trade_no
                     }).write();
                     let rs = db.getByOutTradeNo(out_trade_no);
 
-                    User.update({ level: 1 }, {
+                    User.update({
+                        level: 1
+                    }, {
                         where: {
                             id_card: rs.id_card
                         }
