@@ -1,5 +1,8 @@
-# AuthBox
-        
+# zack_AuthBox
+
+## env
+node 版本 6.x        
+
 ## Start Service
 
 ### Development(开发环境)
@@ -15,7 +18,7 @@ gulp -d
 
 ```
 npm install
-gulp
+npm run postinstall
 cd dist
 npm install
 npm start

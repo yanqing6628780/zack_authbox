@@ -4,7 +4,7 @@ let config = require('y-config');
 config.setConfigPath(__dirname + '/../config/app.example.yaml');
 config.setCustomConfigPath(__dirname + '/../config/app.yaml');
 
-const configs = config.CONFIG;
+const configs = config;
 
 let initConfig = () => {
 
