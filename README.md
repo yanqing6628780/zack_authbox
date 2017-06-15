@@ -1,17 +1,17 @@
-# zack_AuthBox
+# AuthBox
 
 ## env
-node 版本 6.x        
+node 版本 6.x
 
 ## Start Service
 
 ### Development(开发环境)
 
-```  
+```
 npm install
 cd src
-npm install  
-gulp -d  
+npm install
+gulp -d
 ```
 
 ### Deploy(生产环境)
@@ -26,9 +26,9 @@ npm start
 
 ## Get Start
 ### 配置
-在 `config` 目录下有个`app.example.yaml`文件，这是系统的默认配置。  
-如果要修改配置，请将该文件复制并重命名为`app.yaml`。系统会使用`app.yaml`内的值替换`app.example.yaml`相同名称的值。  
-例如要修改数据库配置，app.yaml内容如下：  
+在 `config` 目录下有个`app.example.yaml`文件，这是系统的默认配置。
+如果要修改配置，请将该文件复制并重命名为`app.yaml`。系统会使用`app.yaml`内的值替换`app.example.yaml`相同名称的值。
+例如要修改数据库配置，app.yaml内容如下：
 
 ```
 db:

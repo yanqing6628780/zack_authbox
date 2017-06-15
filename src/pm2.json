@@ -1,6 +1,6 @@
 {
     "apps": [{
-        "name": "zack_authbox",
+        "name": "authbox",
         "script": "bin/www",
         "log_date_format": "YYYY-MM-DD HH:mm Z",
         "error_file": "./server-err.log",
