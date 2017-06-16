@@ -1,6 +1,6 @@
 'use strict'
 
-app = angular.module('zack')
+app = angular.module('cly')
 
 app.controller 'MenberCtrl', ($scope, $rootScope, $http, Checker) ->
 
