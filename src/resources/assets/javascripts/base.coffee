@@ -1,6 +1,6 @@
 'use strict'
 
-app = angular.module('zack', [ ], angular.noop)
+app = angular.module('cly', [ ], angular.noop)
 
 app.constant 'DEBUG', false
 
@@ -39,15 +39,15 @@ app.controller 'BaseController', ($scope, $rootScope) ->
         return true
 
     do ->
-        zack = if localStorage.getItem('zack')?
-            JSON.parse localStorage.getItem 'zack'
+        cly = if localStorage.getItem('cly')?
+            JSON.parse localStorage.getItem 'cly'
         else
             null
 
         # Use Localstroage
-        if zack?.auth?.token? and
-                zack?.auth?.id_card?
-            setLoginStatus zack.auth
+        if cly?.auth?.token? and
+                cly?.auth?.id_card?
+            setLoginStatus cly.auth
             return
 
         # Use Search

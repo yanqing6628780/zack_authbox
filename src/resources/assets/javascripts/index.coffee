@@ -1,6 +1,6 @@
 'use strict'
 
-app = angular.module('zack')
+app = angular.module('cly')
 
 app.controller 'IndexCtrl', ($scope, $rootScope, $http, Checker) ->
 
@@ -16,7 +16,7 @@ app.controller 'IndexCtrl', ($scope, $rootScope, $http, Checker) ->
         $scope.mode = mode
         return
 
-    zack = { }
+    cly = { }
     loginFn = (id_card, password) ->
 
         $http.post('/api/v1/login', {
@@ -28,9 +28,9 @@ app.controller 'IndexCtrl', ($scope, $rootScope, $http, Checker) ->
             if _data.type isnt 'ok'
                 alert _data.msg
                 return false
-            zack ?= { }
-            zack.auth = _data.content
-            localStorage.setItem 'zack', JSON.stringify zack
+            cly ?= { }
+            cly.auth = _data.content
+            localStorage.setItem 'cly', JSON.stringify cly
             _content = _data.content
             window.location.href = """
                 member/?token=#{_content.token}&id_card=#{_content.token}
