@@ -26,8 +26,8 @@ app.controller 'IndexCtrl', ($scope, $rootScope, $http, Checker) ->
             _data = if res.data? then res.data else res
             console.log 'login', _data
             if _data.type isnt 'ok'
-              alert _data.msg
-              return false
+                alert _data.msg
+                return false
             cly ?= { }
             cly.auth = _data.content
             localStorage.setItem 'cly', JSON.stringify cly
@@ -65,7 +65,7 @@ app.controller 'IndexCtrl', ($scope, $rootScope, $http, Checker) ->
             _data = if res.data? then res.data else res
             console.log 'register', _data
             return false if _data.type isnt 'ok'
-            loginFn(data.id_card, data.password)
+            loginFn(data.id_card, data.pass)
 
     # # # # # Register End # # # # #
 

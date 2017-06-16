@@ -53,9 +53,9 @@ app.controller 'BaseController', ($scope, $rootScope) ->
         # Use Search
         searchs = window.location.search
                 .replace(/^\?/, '')
-                .split('&');
+                .split('&')
 
-        search = { };
+        search = { }
         for item in searchs
             [key, value] = item.split '='
             search[key] = value
