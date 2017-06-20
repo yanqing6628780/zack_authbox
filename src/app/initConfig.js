@@ -17,7 +17,7 @@ let initConfig = () => {
 
     require('./utils/getIp.js');
 
-    return true
-}
+    return configs;
+};
 
 module.exports = initConfig();
