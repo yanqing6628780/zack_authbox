@@ -51,6 +51,7 @@ app.controller 'IndexCtrl', ($scope, $rootScope, $http, Checker) ->
 
     $scope.action_register = ->
         data = $scope.register
+        data.gender ?= 'male'
         return false if not Checker.check data
 
         $http.post('/api/v1/register', {

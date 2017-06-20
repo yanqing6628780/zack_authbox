@@ -31,11 +31,11 @@ block content
             p
               | 身份证号：
               span(ng-bind='user.id_card') 12345678901234567X
-              | （不可修改）
+              span(ng-if='user.level==1') （不可修改）
             p
               | 姓名：
               span(ng-bind='user.name') 李大明
-              | （不可修改）
+              span(ng-if='user.level==1') （不可修改）
             p
               | 性别：
               span(ng-bind="user.gender=='male'?'男':'女'") 男
@@ -68,6 +68,18 @@ block content
               .modal-body
                 form#editForm(autocomplete='off')
                   fieldset
+                    .form-group.label-floating(ng-if="user.level!=1")
+                      .input-group
+                        span.input-group-addon
+                          i.fa.fa-phone
+                        label.control-label(for='ms-form-pass') 身份证号
+                        input#ms-form-phone.form-control(type='text', ng-model="editUser.id_card" value=" ")
+                    .form-group.label-floating(ng-if="user.level!=1")
+                      .input-group
+                        span.input-group-addon
+                          i.fa.fa-phone
+                        label.control-label(for='ms-form-pass') 姓名
+                        input#ms-form-phone.form-control(type='text', ng-model="editUser.name" value=" ")
                     .form-group.label-floating
                       .input-group
                         span.input-group-addon
@@ -80,22 +92,19 @@ block content
                         span.input-group-addon
                           i.fa.fa-phone
                         label.control-label(for='ms-form-pass') 电话
-                        input#ms-form-phone.form-control(type='text', ng-model="editUser.phone")
+                        input#ms-form-phone.form-control(type='text', ng-model="editUser.phone" value=" ")
                     .form-group.label-floating
                       .input-group
                         span.input-group-addon
                           i.zmdi.zmdi-email
                         label.control-label(for='ms-form-email') Email
-                        input#ms-form-email.form-control(
-                          type='email'
-                          ng-model="editUser.email"
-                        )
+                        input#ms-form-email.form-control(type='email', ng-model="editUser.email" value=" ")
                     .form-group.label-floating
                       .input-group
                         span.input-group-addon
                           i.fa.fa-map-marker
                         label.control-label(for='ms-form-pass') 地址
-                        input#ms-form-address.form-control(type='text', ng-model="editUser.address")
+                        input#ms-form-address.form-control(type='text', ng-model="editUser.address" value=" ")
                     .form-group.label-floating
                       .input-group
                         span.input-group-addon
