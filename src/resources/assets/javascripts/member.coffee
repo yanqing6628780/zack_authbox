@@ -13,7 +13,7 @@ app.controller 'MenberCtrl', ($scope, $rootScope, $http, Checker) ->
         console.log 'userInfo', _data
 
         if _data.type isnt 'ok'
-            window.location.href = '/'
+            $scope.action_logout()
             return
 
         if _data.content.is_ban and confrim('该账号已被禁用')
