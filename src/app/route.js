@@ -69,7 +69,7 @@ module.exports = function(app, passport) {
     // routerPage.get('/auth/success', localCtrl.success);
 
     app.use('/', routerPage);
-    
+
     var adminRouter = express.Router();
     var adminUserRouter = express.Router({ mergeParams: true });
     var adminMemberRouter = express.Router({ mergeParams: true });
@@ -145,14 +145,24 @@ module.exports = function(app, passport) {
         adminCtrl.member.reset
     );
     adminMemberRouter.get(
+        '/:id/upgrade',
+        midAuth.admin.checkAuthorization('review_user'),
+        adminCtrl.member.upgrade
+    );
+    adminMemberRouter.get(
         '/:id/downgrade',
-        midAuth.admin.checkAuthorization('special_edit_user'),
+        midAuth.admin.checkAuthorization('review_user'),
         adminCtrl.member.downgrade
     );
     adminMemberRouter.get(
         '/:id/ban',
-        midAuth.admin.checkAuthorization('special_edit_user'),
+        midAuth.admin.checkAuthorization('review_user'),
         adminCtrl.member.ban
+    );
+    adminMemberRouter.get(
+        '/:id/disable_ban',
+        midAuth.admin.checkAuthorization('review_user'),
+        adminCtrl.member.disable_ban
     );
 
     adminRouter.use(
