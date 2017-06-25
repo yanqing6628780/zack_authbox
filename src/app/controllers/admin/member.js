@@ -226,8 +226,10 @@ module.exports = function(app) {
         '密码重置成功。密码为:12345678'
     );
     exports.downgrade = _updateUser({ level: 0 }, '取消会员成功');
+    exports.upgrade = _updateUser({ level: 1 }, '升级会员成功');
 
     exports.ban = _updateUser({ is_ban: 1 }, '禁用会员成功');
+    exports.disable_ban = _updateUser({ is_ban: 0 }, '解除禁用成功');
 
     function _updateUser(updateData, successTxt) {
         return (req, res, next) => {
