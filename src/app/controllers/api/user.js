@@ -53,12 +53,33 @@ module.exports = () => {
                 msg: `请填写身份证号码和密码.`
             });
         }
+        var reasons = {
+            FAIL: 0,
+            MAX_ATTEMPTS: 1,
+            BAN: 2
+        };
         return new Promise((resolve, reject) => {
             let criteria = {
                 id_card: req.body.id_card,
                 password: req.body.password
             };
-            User.getAuthenticated(criteria, (err, user) => {
+            User.getAuthenticated(criteria, (err, user, reason) => {
+                if (reason) {
+                    switch (reason) {
+                        case reasons.FAIL:
+                            return reject(res.json({
+                                type: 'error',
+                                msg: '身份证或者密码不正确'
+                            }));
+                        // case reasons.MAX_ATTEMPTS:
+                            // return;
+                        case reasons.BAN:
+                            return reject(res.json({
+                                type: 'error',
+                                msg: '该用户已经被禁用'
+                            }));
+                    }
+                }
                 if (!user) {
                     return reject(res.json({
                         type: 'error',
