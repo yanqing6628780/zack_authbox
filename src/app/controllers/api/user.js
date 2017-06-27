@@ -46,6 +46,19 @@ module.exports = () => {
         return obj;
     };
 
+    let actionLogin = (id) => {
+        let curMnt = moment();
+        let loginObj = {
+            'id': id,
+            'token': md5(`${curMnt.format()}${id}`),
+            'overtimeAt': (
+                curMnt.add(config.accessTokenLifetime, 's').format()
+            )
+        };
+        lowdb.get('tokens').push(loginObj).write();
+        return loginObj;
+    };
+
     exports.actionLogin = (req, res) => {
         if (!req.body.id_card || !req.body.password) {
             return res.json({
@@ -67,7 +80,7 @@ module.exports = () => {
                 }
                 let objs = lowdb.get('tokens')
                     .filter({
-                        'id_card': criteria.id_card
+                        'id': user.id
                     })
                     .value();
                 for (let i in objs) {
@@ -80,18 +93,9 @@ module.exports = () => {
                         });
                     }
                 }
-                let curMnt = moment();
-                let loginObj = {
-                    'id_card': req.body.id_card,
-                    'token': md5(`${curMnt.format()}${req.body.id_card}`),
-                    'overtimeAt': (
-                        curMnt.add(config.accessTokenLifetime, 's').format()
-                    )
-                };
-                lowdb.get('tokens').push(loginObj).write();
                 return resolve(res.json({
                     type: 'ok',
-                    content: loginObj
+                    content: actionLogin(user.id)
                 }));
             });
         });
@@ -155,14 +159,7 @@ module.exports = () => {
         }
         return true;
     };
-    let getIdcard4Token = (token='') => {
-      let objs = lowdb.get('tokens')
-          .filter({
-              'token': token
-          })
-          .value();
-      return objs.length !== 0 ? objs[0].id_card : null;
-    };
+    let getId4Token = lowdb.getId4Token;
 
     exports.actionUpdate = (req, res) => {
         if (!checkLoginToken(req, res)) { return; }
@@ -170,11 +167,14 @@ module.exports = () => {
         let data = { };
         for (let key in arr) {
             let _key = arr[key];
-            if (_key == 'id_card' || _key == 'password') {
-                continue;
-            }
+            // if (_key == 'id_card' || _key == 'password') {
+            //     continue;
+            // }
             if (req.body[_key]) {
                 data[_key] = req.body[_key];
+            }
+            if (_key == 'password' && !req.body[_key]) {
+                delete data[_key];
             }
         }
         if (lodash.keys(data).length === 0) {
@@ -184,20 +184,31 @@ module.exports = () => {
             });
         }
 
-        User.update(data, {
+        User.find({
             where: {
-                id_card: getIdcard4Token(req.body.token)
+                id: getId4Token(req.body.token)
             }
-        }).then(() => {
-          return res.json({
-              type: 'ok',
-              msg: '更新信息成功'
-          });
-        }).catch(() => {
-          return res.json({
-              type: 'error',
-              msg: '更新信息失败'
-          });
+        }).then((user) => {
+            if (user.get({ plain: true }).level == 1) {
+                delete data['id_card'];
+                delete data['name'];
+            }
+            return User.update(data, {
+                where: {
+                    id: user.id
+                }
+            }).then(() => {
+                return res.json({
+                    type: 'ok',
+                    msg: '更新信息成功'
+                });
+            }).catch((err) => {
+                console.error(err);
+                return res.json({
+                    type: 'error',
+                    msg: '更新信息失败'
+                });
+            });
         });
     };
 
@@ -205,14 +216,17 @@ module.exports = () => {
         if (!checkLoginToken(req, res)) { return; }
         User.find({
             where: {
-                id_card: getIdcard4Token(req.body.token)
+                id: getId4Token(req.body.token)
             }
         }).then((user) => {
+            user = user.get({
+                plain: true
+            });
+            delete user.id;
+            delete user.password;
             return res.json({
                 type: 'ok',
-                content: user.get({
-                    plain: true
-                })
+                content: user
             });
         });
     };

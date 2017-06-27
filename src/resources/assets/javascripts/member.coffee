@@ -2,7 +2,7 @@
 
 app = angular.module('cly')
 
-app.controller 'MenberCtrl', ($scope, $rootScope, $http, Checker) ->
+app.controller 'MenberCtrl', ($scope, $rootScope, $http, $timeout, Checker) ->
 
     $scope.user = { }
 
@@ -22,6 +22,7 @@ app.controller 'MenberCtrl', ($scope, $rootScope, $http, Checker) ->
 
         $scope.user = _data.content
         $scope.editUser = _data.content
+        delete $scope.editUser.password
         # 刷新数据
         ($rootScope.auth[key] = val) for key, val of _data.content
 
@@ -32,13 +33,31 @@ app.controller 'MenberCtrl', ($scope, $rootScope, $http, Checker) ->
             token : $rootScope.auth.token
         }
         (data[key] = value) for key, value of $scope.editUser
+        delete data.id
+        if (data.pass)
+            data.password = data.pass
         $http.post('/api/v1/update', data).then (resule) ->
             resule = if resule.data? then resule.data else resule
             if resule.type == 'ok'
+                if resule.content
+                    _c = { }
+                    {
+                        token: _c.token,
+                        id: _c.id
+                    } = _data.content
+                    window.location.href = """
+                        member/?token=#{_c.token}
+                    """
                 $('#myModal-edit').modal('hide')
                 location.reload()
             else
-                alert(resule.msg)
+                if (resule.msg)
+                    alert(resule.msg)
+                else
+                    alert('当前会话超时')
+                    $timeout( ->
+                        window.location.href = "/"
+                    , 1000)
         return true
 
     return
