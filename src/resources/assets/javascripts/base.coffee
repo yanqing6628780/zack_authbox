@@ -45,8 +45,7 @@ app.controller 'BaseController', ($scope, $rootScope) ->
             null
 
         # Use Localstroage
-        if cly?.auth?.token? and
-                cly?.auth?.id_card?
+        if cly?.auth?.token?
             setLoginStatus cly.auth
             return
 
@@ -61,9 +60,8 @@ app.controller 'BaseController', ($scope, $rootScope) ->
             search[key] = value
             continue
 
-        if search.token? and search.id_card?
+        if search.token?
             setLoginStatus {
-                id_card: search.id_card
                 token: search.token
             }
         else if window.location.pathname isnt '/'

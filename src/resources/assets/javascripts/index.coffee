@@ -33,7 +33,7 @@ app.controller 'IndexCtrl', ($scope, $rootScope, $http, Checker) ->
             localStorage.setItem 'cly', JSON.stringify cly
             _content = _data.content
             window.location.href = """
-                member/?token=#{_content.token}&id_card=#{_content.token}
+                member/?token=#{_content.token}
             """
             return true
 
