@@ -63,3 +63,19 @@ db:
         * /javascripts
         * /stylesheets
         * /apidoc 接口文档.html
+
+## 管理员与权限
+
+该系统的权限设计是这样的，管理员角色拥有不同权限。然后，后台管理员可以担任设定好的某一管理员角色，进而拥有不同的权限。
+系统中默认有两种管理员角色：1、超级管理员；2、普通管理员
+管理员是在admin表设置，管理员角色和权限是在admin_role表设置
+
+### 权限说明
+    - add_user：添加会员
+    - special_edit_user：特殊编辑。拥有该权限才能编辑会员的身份证和姓名
+    - edit_user：编辑会员
+    - del_user：删除会员
+    - scan_all_user：搜索所有会员权限
+    - review_user：审核权限。这个权限还包含了升级/取消付费会员和解除/禁用会员
+    - reset_user_password：重置会员密码权限
+    - reset_admin_password：重置管理员密码权限
