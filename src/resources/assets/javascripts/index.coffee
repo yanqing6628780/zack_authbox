@@ -30,9 +30,6 @@ app.controller 'IndexCtrl', ($scope, $rootScope, $http, Checker) ->
                 return false
             cly ?= { }
             cly.auth = _data.content
-            if cly.auth.is_ban is 1
-                alert '该账号已经被禁用.'
-                return
             localStorage.setItem 'cly', JSON.stringify cly
             _content = _data.content
             window.location.href = """

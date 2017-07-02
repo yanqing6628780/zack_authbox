@@ -119,7 +119,7 @@ module.exports = function(sequelize, DataTypes) {
                                 return callback(err, null, reasons.FAIL);
                             }
                             if (isMatch) {
-                                if (user.isban) {
+                                if (user.is_ban) {
                                     return callback(null, null, reasons.BAN);
                                 } else {
                                     return callback(null, user);
