@@ -214,6 +214,7 @@ module.exports = () => {
                 delete data['id_card'];
                 delete data['name'];
             }
+            if(user.id_card == data['id_card']) delete data['id_card'];
             return User.update(data, {
                 where: {
                     id: user.id
