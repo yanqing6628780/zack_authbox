@@ -65,7 +65,9 @@ app.controller 'IndexCtrl', ($scope, $rootScope, $http, Checker) ->
         }).then (res) ->
             _data = if res.data? then res.data else res
             console.log 'register', _data
-            return false if _data.type isnt 'ok'
+            if _data.type isnt 'ok'
+                alert(_data.msg)
+                return false
             loginFn(data.id_card, data.pass)
 
     # # # # # Register End # # # # #
