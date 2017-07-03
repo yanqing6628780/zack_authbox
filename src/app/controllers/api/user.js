@@ -15,20 +15,20 @@ module.exports = () => {
     var exports = {};
 
     const KEY_TABLE = {
-      'id_card': '身份证号码',
-      'password': '密码',
-      'email': 'Email',
-      'gender': '性别',
-      'address': '地址',
-      'phone': '电话',
-      'name': '姓名'
+        'id_card': '身份证号码',
+        'password': '密码',
+        'email': 'Email',
+        'gender': '性别',
+        'address': '地址',
+        'phone': '电话',
+        'name': '姓名'
     };
 
     let tokenTableExist = false;
-    let hasLoginToken = (token='') => {
+    let hasLoginToken = (token = '') => {
         if (!tokenTableExist) {
             if (!lowdb.has('tokens').value()) {
-                lowdb.set('tokens', [ ]).write();
+                lowdb.set('tokens', []).write();
             }
             tokenTableExist = true;
         }
@@ -84,7 +84,7 @@ module.exports = () => {
                                 type: 'error',
                                 msg: '身份证或者密码不正确'
                             }));
-                        // case reasons.MAX_ATTEMPTS:
+                            // case reasons.MAX_ATTEMPTS:
                             // return;
                         case reasons.BAN:
                             return reject(res.json({
@@ -123,44 +123,42 @@ module.exports = () => {
     };
 
     exports.actionRegister = (req, res) => {
-        for(let key in KEY_TABLE) {
-          if (!req.body[key]) {
-              return res.json({
-                  type: 'error',
-                  msg: `请填写${KEY_TABLE[key]}.`
-              });
-          }
+        for (let key in KEY_TABLE) {
+            if (!req.body[key]) {
+                return res.json({
+                    type: 'error',
+                    msg: `请填写${KEY_TABLE[key]}.`
+                });
+            }
         }
-        return new Promise((resolve) => {
-            User.findOrCreate({
-                where: {
-                    'id_card': req.body.id_card
-                },
-                defaults: {
-                    'password': req.body.password,
-                    'email': req.body.email,
-                    'gender': req.body.gender,
-                    'address': req.body.address,
-                    'phone': req.body.phone,
-                    'name': req.body.name
-                }
-            }).spread(function(user, created) {
-                let obj;
-                if (created) {
-                  obj = {
-                      type: 'ok',
-                      content: user.get({
-                          plain: true
-                      })
-                  };
-                } else {
-                  obj = {
-                      type: 'error',
-                      msg: `该身份证号码已使用.`
-                  };
-                }
-                return resolve(res.json(obj));
-            });
+        return User.findOrCreate({
+            where: {
+                'id_card': req.body.id_card
+            },
+            defaults: {
+                'password': req.body.password,
+                'email': req.body.email,
+                'gender': req.body.gender,
+                'address': req.body.address,
+                'phone': req.body.phone,
+                'name': req.body.name
+            }
+        }).then(function (user, created) {
+            let obj;
+            if (created) {
+                obj = {
+                    type: 'ok',
+                    content: user.get({
+                        plain: true
+                    })
+                };
+            } else {
+                obj = {
+                    type: 'error',
+                    msg: `该身份证号码已使用.`
+                };
+            }
+            return res.json(obj);
         });
     };
 
@@ -183,9 +181,11 @@ module.exports = () => {
     let getId4Token = lowdb.getId4Token;
 
     exports.actionUpdate = (req, res) => {
-        if (!checkLoginToken(req, res)) { return; }
+        if (!checkLoginToken(req, res)) {
+            return;
+        }
         let arr = lodash.keys(KEY_TABLE);
-        let data = { };
+        let data = {};
         for (let key in arr) {
             let _key = arr[key];
             // if (_key == 'id_card' || _key == 'password') {
@@ -210,11 +210,12 @@ module.exports = () => {
                 id: getId4Token(req.body.token)
             }
         }).then((user) => {
-            if (user.get({ plain: true }).level == 1) {
+            if (user.get({
+                    plain: true
+                }).level == 1) {
                 delete data['id_card'];
                 delete data['name'];
             }
-            if(user.id_card == data['id_card']) delete data['id_card'];
             return User.update(data, {
                 where: {
                     id: user.id
@@ -235,7 +236,9 @@ module.exports = () => {
     };
 
     exports.actionGetuser = (req, res) => {
-        if (!checkLoginToken(req, res)) { return; }
+        if (!checkLoginToken(req, res)) {
+            return;
+        }
         User.find({
             where: {
                 id: getId4Token(req.body.token)
@@ -324,20 +327,20 @@ module.exports = () => {
                 id_card: obj.id_card
             }
         }).then(() => {
-          return res.json({
-              type: 'ok',
-              msg: '设置密码成功.'
-          });
+            return res.json({
+                type: 'ok',
+                msg: '设置密码成功.'
+            });
         }).catch(() => {
-          return res.json({
-              type: 'error',
-              msg: '设置密码失败.'
-          });
+            return res.json({
+                type: 'error',
+                msg: '设置密码失败.'
+            });
         });
     };
     exports.actionForget = (req, res) => {
         let arr = ['id_card', 'email'];
-        for(let key in arr) {
+        for (let key in arr) {
             let _key = arr[key];
             if (!req.body[_key]) {
                 return res.json({
