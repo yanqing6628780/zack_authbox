@@ -18,25 +18,13 @@ module.exports = function(sequelize, DataTypes) {
         id_card: {
             type: DataTypes.STRING(18),
             allowNull: false,
-            primaryKey: true,
+            unique: true,
             validate: {
                 icLen: (value, next) => {
                     if(value.length != 15 && value.length != 18) {
                         next('身份证号必须是15位或18位');
                     }
                     next();
-                },
-                isUnique: (value, next) => {
-                    var self = this;
-                    User.findOne({
-                        where: { id_card: value},
-                        attributes: ['id']
-                    }).then((user) => {
-                        if(user && parseInt(self.id) !== user.id) return next('该身份证已经存在');
-                        next();
-                    }).catch((err) => {
-                        next(err);
-                    });
                 }
             }
         },
