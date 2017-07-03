@@ -11,6 +11,7 @@
     "pretest": "npm run lint",
     "test": "node ./node_modules/gulp/bin/gulp.js test",
     "lint": "node ./node_modules/gulp/bin/gulp.js lint",
+    "migrations": "node ./src/resources/migrations/index.js",
     "postinstall": "node ./node_modules/gulp/bin/gulp.js"
   },
   "license": "MIT",
