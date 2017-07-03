@@ -84,7 +84,10 @@ block content
                       .input-group
                         span.input-group-addon
                           i.fa.fa-male
-                        select#inputGen.form-control.selectpicker(ng-model='editUser.gender')
+                        select#inputGen.form-control(
+                          ng-model='editUser.gender'
+                          ng-cloak
+                        )
                           option(value='male') 男
                           option(value='female') 女
                     .form-group.label-floating
