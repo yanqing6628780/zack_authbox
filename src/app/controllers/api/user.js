@@ -143,7 +143,7 @@ module.exports = () => {
                 'phone': req.body.phone,
                 'name': req.body.name
             }
-        }).then(function (user, created) {
+        }).spread(function (user, created) {
             let obj;
             if (created) {
                 obj = {
